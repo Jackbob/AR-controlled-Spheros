@@ -1,0 +1,196 @@
+C:\Users\anton\Documents\Unity projects\Client_6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\nunit.framework.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEditor.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.VR.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEditor.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\nunit.framework.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.Analytics.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\anton\Documents\Unity projects\Client_6\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\anton\Documents\Unity projects\Client_6\obj\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\Unity projects\Client_6\obj\Debug\Assembly-CSharp.pdb
+D:\Client_6\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Client_6\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Client_6\Temp\bin\Debug\nunit.framework.dll
+D:\Client_6\Temp\bin\Debug\UnityEditor.dll
+D:\Client_6\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
+D:\Client_6\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.VR.dll
+D:\Client_6\Temp\bin\Debug\Mono.Cecil.dll
+D:\Client_6\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Client_6\Temp\bin\Debug\Unity.DataContract.dll
+D:\Client_6\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+D:\Client_6\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Client_6\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Client_6\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Client_6\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Client_6\Temp\bin\Debug\UnityEngine.xml
+D:\Client_6\Temp\bin\Debug\UnityEditor.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.xml
+D:\Client_6\Temp\bin\Debug\nunit.framework.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.Analytics.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Client_6\Temp\bin\Debug\UnityEngine.VR.xml
+D:\Client_6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Client_6\obj\Debug\Assembly-CSharp.dll
+D:\Client_6\obj\Debug\Assembly-CSharp.pdb
+F:\Client_6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+F:\Client_6\obj\Debug\Assembly-CSharp.dll
+F:\Client_6\obj\Debug\Assembly-CSharp.pdb
+F:\Client_6\Temp\bin\Debug\Assembly-CSharp.dll
+F:\Client_6\Temp\bin\Debug\Assembly-CSharp.pdb
+F:\Client_6\Temp\bin\Debug\nunit.framework.dll
+F:\Client_6\Temp\bin\Debug\UnityEditor.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.Analytics.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.Networking.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.UI.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.VR.dll
+F:\Client_6\Temp\bin\Debug\Mono.Cecil.dll
+F:\Client_6\Temp\bin\Debug\Unity.SerializationLogic.dll
+F:\Client_6\Temp\bin\Debug\Unity.DataContract.dll
+F:\Client_6\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+F:\Client_6\Temp\bin\Debug\Unity.UNetWeaver.dll
+F:\Client_6\Temp\bin\Debug\Unity.CecilTools.dll
+F:\Client_6\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+F:\Client_6\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+F:\Client_6\Temp\bin\Debug\UnityEngine.xml
+F:\Client_6\Temp\bin\Debug\UnityEditor.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.UI.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.Networking.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.xml
+F:\Client_6\Temp\bin\Debug\nunit.framework.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.Analytics.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.xml
+F:\Client_6\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\nunit.framework.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.VR.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\nunit.framework.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Analytics.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\anton\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\anton\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\anton\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.iOS.Extensions.Common.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.VR.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEditor.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\nunit.framework.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.Analytics.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Vuforia.UnityExtensions.dll
+C:\Users\Anton Paalsson\Documents\TNM\Client_6\Temp\bin\Debug\Vuforia.UnityExtensions.xml
+F:\Client_6\Temp\bin\Debug\Vuforia.UnityExtensions.dll
+F:\Client_6\Temp\bin\Debug\Vuforia.UnityExtensions.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\nunit.framework.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEditor.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.Analytics.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.HoloLens.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.VR.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Vuforia.UnityExtensions.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEditor.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\nunit.framework.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.Analytics.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.HoloLens.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\Temp\bin\Debug\Vuforia.UnityExtensions.xml
+C:\Users\anton\Documents\GitHub\Robotspel\Client\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\anton\Documents\GitHub\Robotspel\Client\obj\Debug\Assembly-CSharp.dll
+C:\Users\anton\Documents\GitHub\Robotspel\Client\obj\Debug\Assembly-CSharp.pdb

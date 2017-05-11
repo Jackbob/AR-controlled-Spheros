@@ -5,7 +5,7 @@ Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
 
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace Vuforia
 {
     /// <summary>
@@ -14,6 +14,8 @@ namespace Vuforia
     public class DefaultTrackableEventHandler : MonoBehaviour,
                                                 ITrackableEventHandler
     {
+		private Text TrackText;
+
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
@@ -26,6 +28,7 @@ namespace Vuforia
     
         void Start()
         {
+			TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();
             if (mTrackableBehaviour)
             {
@@ -51,10 +54,12 @@ namespace Vuforia
                 newStatus == TrackableBehaviour.Status.TRACKED ||
                 newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
             {
+				TrackText.text = "TRACKING FOUND";
                 OnTrackingFound();
             }
             else
             {
+				TrackText.text = "TRACKING LOST";
                 OnTrackingLost();
             }
         }

@@ -5,22 +5,16 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour {
 
-	private Text info;
 	private InputField input;
-
-
 
 	void Start () {
 		Debug.Log("View");
 
-		info = GameObject.Find ("IsConnectedTxt").GetComponent<Text> ();
 		input = GameObject.Find ("InputField").GetComponent<InputField> ();
 
-		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
+		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
 		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
 		GameObject.Find ("SendCoordBtn").GetComponent<Button> ().onClick.AddListener(SendCoordInput);
-
-		info.text = "Connected";
 	}
 
 	void Update(){
@@ -37,14 +31,18 @@ public class View : MonoBehaviour {
 		GAMEMANAGER.GM.SceneLoader ("Menu");
 	}
 
+	void ToLobby(){
+
+		GAMEMANAGER.GM.SceneLoader ("Lobby");
+	}
+
 	void SendStringInput(){
 
 		string msg = input.text;
 		GAMEMANAGER.GM.SendString (msg);
 	}
 
-	void SendCoordInput(){
-
-		GAMEMANAGER.GM.SendCoords ();
+	public void SendCoordInput(){
+		GAMEMANAGER.GM.SendSeq();
 	}
 }

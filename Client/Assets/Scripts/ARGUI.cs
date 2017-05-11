@@ -11,8 +11,7 @@ public class ARGUI : MonoBehaviour
 	{
 		fpsStyle = new GUIStyle ();
 		fpsStyle.fontSize = 14;
-		fpsStyle.normal.textColor = Color.black;
-		fpsStyle.normal.textColor = Color.black;
+		fpsStyle.normal.textColor = Color.white;
 		HUDFPS hs = FindObjectOfType (typeof(HUDFPS)) as HUDFPS;
 		hs.OnFpsChange += fpsChange;//add the event listener here....
 	}
@@ -26,7 +25,7 @@ public class ARGUI : MonoBehaviour
 
 	private void drawFps ()
 	{
-		GUI.Label (new Rect (84f, 130f, 100f, 100f), fpsString, fpsStyle);
+		GUI.Label (new Rect (0, 0, 100f, 100f), fpsString, fpsStyle);
 	}
 
 

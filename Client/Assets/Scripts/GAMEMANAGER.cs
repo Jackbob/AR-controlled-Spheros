@@ -15,7 +15,7 @@ public class GAMEMANAGER: MonoBehaviour
 	private TcpClient client;
 	private NetworkStream stream;
 
-	List<string> Coords = new List<string>();
+	private string Seq = "";
 
 	void Awake ()
 	{
@@ -32,15 +32,25 @@ public class GAMEMANAGER: MonoBehaviour
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
 	}
 
-	public void AddCoord(float x, float z){
-		
-		string data = x.ToString() + " " + z.ToString();
-		Coords.Add (data);
+	public void AddToSeq(float x, float z){
+		Seq += x.ToString() + " " + z.ToString() + " ";
 	}
 
-	public void SendCoords(){
-		Coords.ForEach(SendString);
-		Coords.Clear ();
+	public void SendSeq(){
+		SendString(Seq);
+		Seq = "";
+	}
+
+	public void SendString (string s)
+	{
+		Byte[] data = System.Text.Encoding.ASCII.GetBytes (s);
+
+		try {
+			stream.Write (data, 0, data.Length);
+		} catch (Exception e) {
+			Debug.Log ("# " + s);
+			Debug.Log ("Socket error: " + e.Message);
+		}
 	}
 
 	public void Connect (string host)
@@ -90,18 +100,6 @@ public class GAMEMANAGER: MonoBehaviour
 		}
 
 		return "";
-	}
-
-	public void SendString (string s)
-	{
-		Byte[] data = System.Text.Encoding.ASCII.GetBytes (s);
-
-		try {
-			stream.Write (data, 0, data.Length);
-		} catch (Exception e) {
-			Debug.Log ("# " + s);
-			Debug.Log ("Socket error: " + e.Message);
-		}
 	}
 
 	public void SocketConnected ()

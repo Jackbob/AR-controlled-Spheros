@@ -17,7 +17,7 @@ Platform assembly: C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_D
 Loading C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_Data\Managed\Vuforia.UnityExtensions.dll (this message is harmless)
 Loading C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_Data\Managed\Vuforia.UnityExtensions.dll into Unity Child Domain
-- Completed reload, in  0.020 seconds
+- Completed reload, in  0.022 seconds
 Platform assembly: C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\anton\Documents\GitHub\Robotspel\Client\Builds\Run_Data\Managed\System.dll (this message is harmless)
 OnLevelWasLoaded was found on VuforiaAbstractBehaviour
@@ -36,3 +36,122 @@ desktop: 1920x1080 59Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.009113 ms
+Vuforia initialization successful
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+StartUp
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.300639 ms
+
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 344.
+Total: 0.226656 ms (FindLiveObjects: 0.019672 ms CreateObjectMapping: 0.014112 ms MarkObjects: 0.185173 ms  DeleteObjects: 0.006842 ms)
+
+Menu
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.108741 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 353.
+Total: 0.273697 ms (FindLiveObjects: 0.026086 ms CreateObjectMapping: 0.014967 ms MarkObjects: 0.219813 ms  DeleteObjects: 0.012401 ms)
+
+Lobby
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.586739 ms
+Setting BehaviourComponentFactory
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 406.
+Total: 0.416961 ms (FindLiveObjects: 0.032929 ms CreateObjectMapping: 0.023093 ms MarkObjects: 0.355379 ms  DeleteObjects: 0.005131 ms)
+
+Trackable officialMarker lost
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+View
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Requested Focus mode FOCUS_MODE_CONTINUOUSAUTO successfully.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Could not initialize the tracker.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SetHint
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SetHint
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+SetHint
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dataset Kandidat could not be loaded and cannot be activated.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+StartVuforia
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Creating a Mono Camera Configuration (Check for reflection)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+StopVuforia
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Trackable officialMarker lost
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+UnloadTime: 12.262520 ms
+
+Unloading 991 unused Assets to reduce memory usage. Loaded Objects now: 385.
+Total: 2.524007 ms (FindLiveObjects: 0.174054 ms CreateObjectMapping: 0.128723 ms MarkObjects: 0.608122 ms  DeleteObjects: 1.611823 ms)
+
+Lobby
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.494366 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 378.
+Total: 0.385742 ms (FindLiveObjects: 0.027369 ms CreateObjectMapping: 0.019672 ms MarkObjects: 0.333996 ms  DeleteObjects: 0.004276 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.953665 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 378.
+Total: 0.422521 ms (FindLiveObjects: 0.036778 ms CreateObjectMapping: 0.021810 ms MarkObjects: 0.358800 ms  DeleteObjects: 0.004276 ms)
+
+Menu
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 2098 -> priority: 1 
+  Thread -> id: 1bec -> priority: 1 
+  Thread -> id: 1464 -> priority: 1 
+  Thread -> id: 12a0 -> priority: 1 

@@ -11,13 +11,12 @@ public class Lobby : MonoBehaviour {
 	void Start () {
 		Debug.Log("Lobby");
 
-		info = GameObject.Find ("IsConnectedTxt").GetComponent<Text> ();
 		infoFromServer = GameObject.Find ("InfoTxt").GetComponent<Text> ();
 
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
+		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
 		GameObject.Find ("ReadyBtn").GetComponent<Button> ().onClick.AddListener(Ready);
 
-		info.text = "Connected";
 		infoFromServer.text = "No msg from server yet";
 	}
 
@@ -39,6 +38,11 @@ public class Lobby : MonoBehaviour {
 
 		GAMEMANAGER.GM.Disconnect ();
 		GAMEMANAGER.GM.SceneLoader ("Menu");
+	}
+
+	void ToFreeride(){
+
+		GAMEMANAGER.GM.SceneLoader ("View");
 	}
 
 	void Ready(){

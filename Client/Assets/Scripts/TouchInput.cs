@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class TouchInput : MonoBehaviour {
 
 	public Text vecText;
+	private Color orColor = new Color (1.0f, 0f, 0f, 1.0f);
 	private Color posColor = new Color(0f, 1.0f, 0f, 1.0f);
+	private Material orColored;
 	private Material posColored;
 
 	void Start(){
@@ -19,6 +21,15 @@ public class TouchInput : MonoBehaviour {
 		// Attach this script to a trackable object
 		// Create a plane that matches the target plane
 		Plane targetPlane = new Plane(transform.up, transform.position);
+
+		// Creates a cylinder with 0 height and places it in origo to mark out (0,0,0)
+		GameObject origo = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+		orColored = new Material(Shader.Find("Diffuse"));
+		orColored.color = orColor;
+		origo.GetComponent<Renderer>().material = orColored;
+		origo.transform.parent = transform;
+		origo.transform.localScale = new Vector3(0.1f, 0.001f, 0.1f);
+		origo.transform.position = new Vector3(0, 0, 0);
 
 		// When user touch the screen
 		foreach (Touch touch in Input.touches)
@@ -45,21 +56,10 @@ public class TouchInput : MonoBehaviour {
 				float vZ = planePoint.z;
 				vecText.text = "X: " + vX.ToString() + " Z: " + vZ.ToString();
 
-				string send = vX.ToString() + " " + vZ.ToString();
-				GAMEMANAGER.GM.AddCoord (vX, vZ);
+				GAMEMANAGER.GM.AddToSeq (vX, vZ);
 
-				if(){
-					destroyPos(pos);
-				}
-
+				Destroy (pos, 3.0f);
 			}
 		}
-	}
-
-
-
-	void destroyPos(Gameobject position)
-	{
-			Destroy (position);
 	}
 }

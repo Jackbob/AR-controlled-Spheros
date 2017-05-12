@@ -179,7 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SpheroRAW\SpheroLogic.cpp" />
-    <ClCompile Include="SpheroRAWTester.cpp">
+    <ClCompile Include="main.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</CompileAsManaged>

@@ -70,7 +70,7 @@ std::vector<double> operator/(std::vector<double> vec1, double d);
 
 void setParams(SimpleBlobDetector::Params &params);
 
-a3d::Vector3d calculateNormal(Mat cameraMatrix, Mat extrinsicParam);
+a3d::Vector3d calculateNormal( Mat extrinsicParam);
 
 void setCameraSettings(VideoCapture &capture);
 
@@ -129,7 +129,8 @@ int _tmain(int argc, _TCHAR* argv[])
         //------------------------------------------------------------------------------------------------------------------
         // Send/Receive Data
 
-		sphero1->setOrientation();
+		Thread^ orientationThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
+		orientationThread->Start();
 
         while(sphero1->spheroConnected()) {
 
@@ -138,16 +139,19 @@ int _tmain(int argc, _TCHAR* argv[])
 				sphero1->setTarget(response);
 				Thread^ spheroThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
 				spheroThread->Start();
-				//sphero1->testMove();
 				gotMessage = false;
 			}
 			sphero1->updateSpheroPos(Xpos, Ypos);
 			Sleep(100);
-
-
+			//sphero1->keyMove();
 			if (GetAsyncKeyState('Q')) {
 				quit = true;
 				break;
+			}
+			if (GetAsyncKeyState('P')) {
+				sphero1->rest();
+				Thread^ orientationThread1 = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
+				orientationThread1->Start();
 			}
         //sphero1->printDeviceStatus("Poll loop exited");
 
@@ -263,7 +267,7 @@ void setParams(SimpleBlobDetector::Params &params)
 	params.filterByInertia = false;
 }
 
-a3d::Vector3d calculateNormal(Mat cameraMatrix, Mat extrinsicParam)
+a3d::Vector3d calculateNormal( Mat extrinsicParam)
 {
 	a3d::Vector3d transvec, normal;
 	std::vector<double> rotvec;
@@ -438,7 +442,7 @@ void startCameraTracking()
 	transvec = { extrinsicParam.at<double>(0,3), extrinsicParam.at<double>(0,4), extrinsicParam.at<double>(0,5) };
 
 	//calculate normal
-	normal = calculateNormal(cameraMatrix, extrinsicParam);
+	normal = calculateNormal(extrinsicParam);
 
 	//video capture object.
 	VideoCapture capture(2);

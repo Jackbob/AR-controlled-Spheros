@@ -25,17 +25,22 @@ SpheroLogic::~SpheroLogic()
 
 void SpheroLogic::moveSphero()
 {
-	//std::vector<SpheroMessage> messages = device->receive();
+
 	if (!moving)
 	{
+		//device->eraseOrbBasicStorage(0);
+		//device->abortMacro();
 		float dist;
+		bool finished = false;
+		commandCount = 0;
 		moving = true;
 		for (auto target : *targetPositions) {
-			do {
-				calculatePath(target);
-				Sleep(500);
-				dist = distToPoint(X, Y, target.first, target.second);
-			} while (dist > 10.0f);
+				do {
+					calculatePath(target);
+					Sleep(200);
+					commandCount++;
+					dist = distToPoint(X, Y, target.first, target.second);
+				} while (dist > STOP_RADIUS);
 		}
 		moving = false;
 	}
@@ -50,46 +55,24 @@ void SpheroLogic::keyMove()
 {
 	if (GetAsyncKeyState('W'))
 	{
-		//printDeviceStatus("Test");
-		device->eraseOrbBasicStorage(0x0);
 		device->abortMacro();
-		device->roll(100, 0, 2);
+		device->roll(100, 0, 1);
 		
 	}
 	else if (GetAsyncKeyState('S'))
 	{
-		device->eraseOrbBasicStorage(0x0);
 		device->abortMacro();
-		//device->eraseOrbBasicStorage(0x0);
 		device->roll(100, 180, 1);
 	}
 	else if (GetAsyncKeyState('A'))
 	{
-		device->eraseOrbBasicStorage(0x0);
 		device->abortMacro();
-		//device->eraseOrbBasicStorage(0x0);
 		device->roll(100, 270, 1);
 	}
 	else if (GetAsyncKeyState('D'))
 	{
-		device->eraseOrbBasicStorage(0x0);
 		device->abortMacro();
-		//device->eraseOrbBasicStorage(0x0);
 		device->roll(100, 90, 1);
-	}
-	else if (GetAsyncKeyState('E'))
-	{
-		device->eraseOrbBasicStorage(0x0);
-		CommandParameters data;
-		data.clear();
-		data.push_back(0x0);
-		data.push_back(0x0);
-		data.push_back(0x0);
-		data.push_back(0x0);
-		data.push_back(0x0);
-		data.push_back(0x0);
-		device->configureCollisionDetection(data);
-		device->setStabilisation(true);
 	}
 	else if (GetAsyncKeyState('R'))
 	{
@@ -106,19 +89,10 @@ void SpheroLogic::keyMove()
 		device->abortMacro();
 		device->setRGBLedOutput(0, 0, 255, true);
 	}
-	else if (GetAsyncKeyState('T'))
+	else if (GetAsyncKeyState('F'))
 	{
-		
 		device->abortMacro();
-		device->setRGBLedOutput(255, 255, 255, true);
-		device->setHeading((ushort)270);
-	}
-	else
-	{
-		device->eraseOrbBasicStorage(0x0);
-		device->abortMacro();
-		//device->eraseOrbBasicStorage(0x0);
-		//device->roll(0, 0, 0);
+		device->roll(0, 0, 0);
 	}
 }
 
@@ -160,18 +134,14 @@ void SpheroLogic::testMove()
 }
 
 void SpheroLogic::setOrientation()
-{
-	device->abortMacro();
-	device->roll(50, 0, 1);
+{	
 	device->setRGBLedOutput(255, 0, 0, 1);
-
-	int offsetAngle;
-	std::cin >> offsetAngle;
-	offAngle = offsetAngle;
-	//Sleep(1000);
-
 	device->abortMacro();
-	device->roll(50, 360 - offsetAngle, 1);
+	device->roll(40, 0, 1);
+
+	Sleep(6000);
+	setOffsetAngle();
+
 }
 
 
@@ -203,22 +173,59 @@ float SpheroLogic::distToPoint(float X1, float Y1, float Xtarget, float Ytarget)
 	return sqrt(pow(X1-Xtarget, 2.0f) + pow(Y1-Ytarget,2.0f));
 }
 
-//
+//Get angle and move towards target
 void SpheroLogic::calculatePath(std::pair<float, float> target)
 {
 	float distance = distToPoint(X, Y, target.first, target.second);
-	if (target == *(targetPositions->end()-1) && distance < 10.0f)
+	std::cout << std::endl << "Distance to point:  " <<  distance << std::endl;
+	int angle = getAngle(target);
+	if (target == *(targetPositions->end()-1) && distance < STOP_RADIUS)
 	{
+		
+		
+		device->roll(0,  angle, 0);
 		device->abortMacro();
-		device->roll(0, 0, 0);
-		return;
 	}
+	else if (distance < CLOSE_RADIUS && (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET ||  commandCount % CMD_WAIT == 0))
+	{
+		std::cout << "Moving, close" << std::endl;
+		prevAngle = angle;
+		
+		device->roll(30, angle, 2);
+	}
+	else if (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET || commandCount % CMD_WAIT == 0)
+	{
+		std::cout << "Moving, far" << std::endl;
+		prevAngle = angle;
+
+		device->roll(40, angle, 2);
+	}
+	else if (commandCount % 10 == 0)
+		device->abortMacro();
+}
+
+void SpheroLogic::rest()
+{
+	device->sleep();
+	while (!spheroConnected())
+		device->connect();
+	PrintDeviceStatus("Connecting: ", device);
+}
+
+void SpheroLogic::setOffsetAngle()
+{
+
+	float angle = atan2(Y,X);
+	angle = angle * (180.0f / 3.14f);
+
+	if (angle < 180.0f && angle > 90.0f)
+		angle = 450.0f - angle;
 	else
-	{
-		int angle = getAngle(target);
-		device->abortMacro();
-		device->roll((int)distance/2, angle, 1);
-	}
+		angle = 90.0f - angle;
+
+	std::cout << "Angle:   " << angle << "     ";
+
+	offAngle = angle;
 }
 
 void SpheroLogic::updateSpheroPos(float Xpos, float Ypos)
@@ -227,33 +234,26 @@ void SpheroLogic::updateSpheroPos(float Xpos, float Ypos)
 	Y = Ypos/10.0f;
 }
 
+//Calculate angle to target
 int SpheroLogic::getAngle(std::pair<float, float> target)
 {
-	float dot = X * target.first + Y * target.second;
-	float absDist = distToPoint(0.0f, 0.0f, target.first, target.second) * distToPoint(0.0f, 0.0f, X, Y);
-	float cosAngle = dot / absDist;
 
 	float angle = atan2(target.second - Y , target.first - X);
-	//if (target.second < Y)
-		//angle = -angle;
 	angle = angle * (180.0f / 3.14f);
-	
-	//std::cout << "dot: " << dot << "	absDist: " << absDist << "	cosAngle: " << cosAngle << "	angle: " << angle;
-	std::cout << "Angle:   " << angle << "     ";
+
+	//std::cout << "Angle:   " << angle << "     ";
 	
 	if (angle < 180.0f && angle > 90.0f)
 		angle = 450.0f - angle;
 	else
 		angle = 90.0f - angle;
 
-
-
-	std::cout << "SpheroAngle:     " << angle;
+	//std::cout << "SpheroAngle:     " << angle;
 	angle = angle - offAngle;
 	if (angle < 0)
 		angle = 360 + angle;
 
-	std::cout << "    offsettangle:  " << angle << std::endl;
+	//std::cout << "    offsettangle:  " << angle << std::endl;
 
 	return int(angle);
 }

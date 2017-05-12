@@ -124,7 +124,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SpheroRAW.lib;opencv_world320d.lib;opencv_world320.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Jakob\Documents\Kandidat\opencv\build\x64\vc14\lib;C:\Users\Jakob\Documents\Kandidat\SpheroRAW\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Jakob\Documents\Kandidat\opencv\build\x64\vc14\lib;C:\Users\Jakob\Documents\Kandidat\Robotspel\Server\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -173,14 +173,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\SpheroRAW\SpheroLogic.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="linearalgebra.hh" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\SpheroRAW\SpheroLogic.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SpheroRAWTester.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>

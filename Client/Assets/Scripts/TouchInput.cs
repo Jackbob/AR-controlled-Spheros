@@ -33,7 +33,7 @@ public class TouchInput : MonoBehaviour {
 				targetPlane.Raycast(ray, out dist);
 				Vector3 planePoint = ray.GetPoint(dist);
 
-				vecText2.text = "x: " + touch.position.x.ToString() + " y: " + touch.position.y.ToString();
+				//vecText2.text = "x: " + touch.position.x.ToString() + " y: " + touch.position.y.ToString();
 
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);

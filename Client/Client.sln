@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Assembly-CSharp.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Assembly-CSharp-Editor.csproj", "{5544F79C-5306-909F-C855-53D6959D5DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Assembly-UnityScript-Editor-firstpass.unityproj", "{EBA5FAA6-239A-AEC3-8D1C-AA113A929D74}"
+Project("{577D7068-826D-E925-EA2A-EC01DBADF5E4}") = "Client", "Assembly-UnityScript-Editor-firstpass.unityproj", "{EBA5FAA6-239A-AEC3-8D1C-AA113A929D74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

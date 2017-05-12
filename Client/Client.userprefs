@@ -1,9 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\TouchInput.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\View.cs">
     <Files>
-      <File FileName="Assets\Vuforia\Scripts\DefaultTrackableEventHandler.cs" Line="31" Column="9" />
-      <File FileName="Assets\Scripts\TouchInput.cs" Line="50" Column="20" />
+      <File FileName="Assets\Scripts\GAMEMANAGER.cs" Line="32" Column="50" />
+      <File FileName="Assets\Scripts\TouchInput.cs" Line="36" Column="13" />
+      <File FileName="Assets\Scripts\Lobby.cs" Line="50" Column="24" />
+      <File FileName="Assets\Scripts\Menu.cs" Line="31" Column="36" />
+      <File FileName="Assets\Scripts\View.cs" Line="45" Column="35" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

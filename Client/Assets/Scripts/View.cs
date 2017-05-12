@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class View : MonoBehaviour {
 
 	private InputField input;
+	private float prev = 0;
 
 	void Start () {
 		Debug.Log("View");
@@ -15,11 +16,13 @@ public class View : MonoBehaviour {
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
 		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
 		GameObject.Find ("SendCoordBtn").GetComponent<Button> ().onClick.AddListener(SendCoordInput);
+
+		DoneWithSeq ();
 	}
 
 	void Update(){
 		if (GAMEMANAGER.GM.GetSocketReady ()) {
-			
+
 		} else {
 			Disconnect ();
 		}
@@ -44,5 +47,18 @@ public class View : MonoBehaviour {
 
 	public void SendCoordInput(){
 		GAMEMANAGER.GM.SendSeq();
+	}
+
+	public void DoneWithSeq(){
+
+		float cur = GAMEMANAGER.GM.GetSeqLength ();
+
+		if(prev != 0 && cur == prev){
+			SendCoordInput ();
+			prev = 0;
+		} else {
+			prev = cur;
+		}
+		Invoke ("DoneWithSeq", 2);
 	}
 }

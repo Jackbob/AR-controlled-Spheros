@@ -33,12 +33,20 @@ public class GAMEMANAGER: MonoBehaviour
 	}
 
 	public void AddToSeq(float x, float z){
-		Seq += x.ToString() + " " + z.ToString() + " ";
+
+		// Inom planen
+		if(true){
+			Seq += x.ToString() + " " + z.ToString() + " ";
+		}
 	}
 
 	public void SendSeq(){
 		SendString(Seq);
 		Seq = "";
+	}
+
+	public float GetSeqLength(){
+		return Seq.Length;
 	}
 
 	public void SendString (string s)

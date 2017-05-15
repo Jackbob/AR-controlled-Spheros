@@ -15,9 +15,6 @@ public class View : MonoBehaviour {
 
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
 		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
-		GameObject.Find ("SendCoordBtn").GetComponent<Button> ().onClick.AddListener(SendCoordInput);
-
-		DoneWithSeq ();
 	}
 
 	void Update(){
@@ -43,22 +40,5 @@ public class View : MonoBehaviour {
 
 		string msg = input.text;
 		GAMEMANAGER.GM.SendString (msg);
-	}
-
-	public void SendCoordInput(){
-		GAMEMANAGER.GM.SendSeq();
-	}
-
-	public void DoneWithSeq(){
-
-		float cur = GAMEMANAGER.GM.GetSeqLength ();
-
-		if(prev != 0 && cur == prev){
-			SendCoordInput ();
-			prev = 0;
-		} else {
-			prev = cur;
-		}
-		Invoke ("DoneWithSeq", 2);
 	}
 }

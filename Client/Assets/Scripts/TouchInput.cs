@@ -6,13 +6,11 @@ using UnityEngine.UI;
 public class TouchInput : MonoBehaviour {
 
 	private Text vecText;
-	private Text vecText2;
 	private Color posColor = new Color(0f, 1.0f, 0f, 1.0f);
 	private Material posColored;
 
 	void Start(){
 		vecText = GameObject.Find ("Vec").GetComponent<Text> ();
-		vecText = GameObject.Find ("Vec2").GetComponent<Text> ();
 	}
 
 	// Update is called once per frame
@@ -32,8 +30,6 @@ public class TouchInput : MonoBehaviour {
 				float dist = 0.0f;
 				targetPlane.Raycast(ray, out dist);
 				Vector3 planePoint = ray.GetPoint(dist);
-
-				vecText2.text = "x: " + touch.position.x.ToString() + " y: " + touch.position.y.ToString();
 
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);

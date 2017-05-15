@@ -16,6 +16,7 @@ public class GAMEMANAGER: MonoBehaviour
 	private NetworkStream stream;
 
 	private string Seq = "";
+	private float prev = 0;
 
 	void Awake ()
 	{
@@ -34,9 +35,11 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void AddToSeq(float x, float z){
 
-		// Inom planen
-		if(true){
+		if(x > -0.7 && x < 0.7 && z > -1 && z < 1){
 			Seq += x.ToString() + " " + z.ToString() + " ";
+			prev = Seq.Length;
+			CancelInvoke ("DoneWithSeq");
+			Invoke ("DoneWithSeq", 2);
 		}
 	}
 
@@ -45,8 +48,14 @@ public class GAMEMANAGER: MonoBehaviour
 		Seq = "";
 	}
 
-	public float GetSeqLength(){
-		return Seq.Length;
+	public void DoneWithSeq(){
+
+		if(Seq.Length != 0 && Seq.Length == prev){
+			SendSeq ();
+			prev = 0;
+		}
+
+		Debug.Log("#");
 	}
 
 	public void SendString (string s)

@@ -21,7 +21,7 @@ public class Lobby : MonoBehaviour {
 	}
 
 	void Update () {
-		if (GAMEMANAGER.GM.GetSocketReady ()) {
+		if (GAMEMANAGER.GM.GetSocket ()) {
 			
 			string fromServer = GAMEMANAGER.GM.Receive ();
 

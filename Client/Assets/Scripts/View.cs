@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class View : MonoBehaviour {
 
 	private InputField input;
-	private float prev = 0;
+	private Text TrackText;
+
 
 	void Start () {
 		Debug.Log("View");
@@ -15,10 +16,18 @@ public class View : MonoBehaviour {
 
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
 		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
+		TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
+		GameObject.Find ("SwitchBtn").GetComponent<Button> ().onClick.AddListener(Switch);
 	}
 
 	void Update(){
-		if (GAMEMANAGER.GM.GetSocketReady ()) {
+		if (GAMEMANAGER.GM.GetSocket ()) {
+			
+			if (GAMEMANAGER.GM.GetTracking ()) {
+				TrackText.text = "TRACKING FOUND";
+			} else {
+				TrackText.text = "TRACKING LOST";
+			}
 
 		} else {
 			Disconnect ();
@@ -40,5 +49,10 @@ public class View : MonoBehaviour {
 
 		string msg = input.text;
 		GAMEMANAGER.GM.SendString (msg);
+	}
+
+	void Switch(){
+
+		GAMEMANAGER.GM.Switch ();
 	}
 }

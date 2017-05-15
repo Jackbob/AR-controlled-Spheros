@@ -11,12 +11,14 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public static GAMEMANAGER GM;
 
-	private bool socketReady;
+	private bool socket;
+	private bool tracking;
+	private bool sphero;
+
 	private TcpClient client;
 	private NetworkStream stream;
 
 	private string Seq = "";
-	private float prev = 0;
 
 	void Awake ()
 	{
@@ -31,31 +33,35 @@ public class GAMEMANAGER: MonoBehaviour
 	void Start ()
 	{
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
+		socket = false;
+		tracking = false;
+		sphero = false;
+	}
+
+	public void Switch(){
+		SendSeq ();
+		sphero = !sphero;
 	}
 
 	public void AddToSeq(float x, float z){
 
 		if(x > -0.7 && x < 0.7 && z > -1 && z < 1){
 			Seq += x.ToString() + " " + z.ToString() + " ";
-			prev = Seq.Length;
-			CancelInvoke ("DoneWithSeq");
-			Invoke ("DoneWithSeq", 2);
+			CancelInvoke ("SendSeq");
+			Invoke ("SendSeq", 2);
 		}
 	}
 
 	public void SendSeq(){
-		SendString(Seq);
-		Seq = "";
-	}
 
-	public void DoneWithSeq(){
-
-		if(Seq.Length != 0 && Seq.Length == prev){
-			SendSeq ();
-			prev = 0;
+		if(!sphero){
+			Seq = "0 " + Seq;
+		} else {
+			Seq = "1 " + Seq;
 		}
 
-		Debug.Log("#");
+		SendString(Seq);
+		Seq = "";
 	}
 
 	public void SendString (string s)
@@ -73,7 +79,7 @@ public class GAMEMANAGER: MonoBehaviour
 	public void Connect (string host)
 	{
 		
-		if (socketReady)
+		if (socket)
 			return;
 
 		//Default IP/port
@@ -83,7 +89,7 @@ public class GAMEMANAGER: MonoBehaviour
 		try {
 			client = new TcpClient (host, port);
 			stream = client.GetStream ();
-			socketReady = true;
+			socket = true;
 		} catch (Exception e) {
 			Debug.Log ("Socket error: " + e.Message);
 		}
@@ -94,7 +100,7 @@ public class GAMEMANAGER: MonoBehaviour
 		try {
 			stream.Close ();
 			client.Close ();
-			socketReady = false;
+			socket = false;
 		} catch (Exception e) {
 			Debug.Log ("DC error: " + e.Message);
 		}
@@ -121,11 +127,11 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void SocketConnected ()
 	{
-		if (socketReady) {
+		if (socket) {
 			bool part1 = client.Client.Poll (1000, SelectMode.SelectRead);
 			bool part2 = (client.Client.Available == 0);
 			if (part1 && part2) {
-				socketReady = false;
+				socket = false;
 			}
 		}
 	}
@@ -135,12 +141,30 @@ public class GAMEMANAGER: MonoBehaviour
 		SceneManager.LoadScene (s);
 	}
 
-	public bool GetSocketReady ()
+	public bool GetSocket ()
 	{
-		if (socketReady) {
+		if (socket) {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public bool GetTracking ()
+	{
+		if (tracking) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void SetTracking (bool c)
+	{
+		if (c) {
+			tracking = true;
+		} else {
+			tracking = false;
 		}
 	}
 }

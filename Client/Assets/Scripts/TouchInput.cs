@@ -31,6 +31,9 @@ public class TouchInput : MonoBehaviour {
 				targetPlane.Raycast(ray, out dist);
 				Vector3 planePoint = ray.GetPoint(dist);
 
+				float tx = touch.position.x;
+				float ty = touch.position.y;
+
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 				posColored = new Material(Shader.Find("Diffuse"));
@@ -43,7 +46,7 @@ public class TouchInput : MonoBehaviour {
 				// Just to write out the coords of the touch input on the target plane
 				float vX = planePoint.x;
 				float vZ = planePoint.z;
-				vecText.text = "X: " + vX.ToString() + " Z: " + vZ.ToString();
+				vecText.text = "X: " + tx.ToString() + " Z: " + ty.ToString();
 
 				GAMEMANAGER.GM.AddToSeq (vX, vZ);
 

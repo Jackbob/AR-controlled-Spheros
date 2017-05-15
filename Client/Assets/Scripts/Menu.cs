@@ -25,7 +25,7 @@ public class Menu : MonoBehaviour {
 
 		GAMEMANAGER.GM.Connect(ip);
 
-		if (GAMEMANAGER.GM.GetSocketReady ()) {
+		if (GAMEMANAGER.GM.GetSocket ()) {
 			GAMEMANAGER.GM.SceneLoader ("Lobby");
 		} else {
 			info.text = "Could not connect";

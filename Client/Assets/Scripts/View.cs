@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour {
 
+
 	private InputField input;
 	private Text TrackText;
 
@@ -24,9 +25,9 @@ public class View : MonoBehaviour {
 		if (GAMEMANAGER.GM.GetSocket ()) {
 			
 			if (GAMEMANAGER.GM.GetTracking ()) {
-				TrackText.text = "TRACKING FOUND";
+				TrackText.text = "";
 			} else {
-				TrackText.text = "TRACKING LOST";
+				TrackText.text = "NO TRACKING FOUND";
 			}
 
 		} else {

@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class TouchInput : MonoBehaviour {
 
-	private Text vecText;
 	private Color posColor = new Color(0f, 1.0f, 0f, 1.0f);
 	private Material posColored;
 
 	void Start(){
-		vecText = GameObject.Find ("Vec").GetComponent<Text> ();
 	}
 
 	// Update is called once per frame
@@ -34,23 +32,26 @@ public class TouchInput : MonoBehaviour {
 				float tx = touch.position.x;
 				float ty = touch.position.y;
 
-				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
-				GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-				posColored = new Material(Shader.Find("Diffuse"));
-				posColored.color = posColor;
-				pos.GetComponent<Renderer>().material = posColored;
-				pos.transform.parent = transform;
-				pos.transform.localScale = new Vector3(0.1f, 0.001f, 0.1f);
-				pos.transform.position = planePoint;
+				if(tx > 450 && ty < 450 && GAMEMANAGER.GM.GetTracking()) {
+					
+					// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
+					GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+					posColored = new Material(Shader.Find("Diffuse"));
+					posColored.color = posColor;
+					pos.GetComponent<Renderer>().material = posColored;
+					pos.transform.parent = transform;
+					pos.transform.localScale = new Vector3(0.1f, 0.001f, 0.1f);
+					pos.transform.position = planePoint;
 
-				// Just to write out the coords of the touch input on the target plane
-				float vX = planePoint.x;
-				float vZ = planePoint.z;
-				vecText.text = "X: " + tx.ToString() + " Z: " + ty.ToString();
+					// Just to write out the coords of the touch input on the target plane
+					float vX = planePoint.x;
+					float vZ = planePoint.z;
 
-				GAMEMANAGER.GM.AddToSeq (vX, vZ);
+					GAMEMANAGER.GM.AddToSeq (vX, vZ);
 
-				destroyPos (pos);			}
+					destroyPos (pos);	
+				}
+			}
 		}
 	}
 

@@ -78,7 +78,6 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void Connect (string host)
 	{
-		
 		if (socket)
 			return;
 
@@ -161,10 +160,6 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void SetTracking (bool c)
 	{
-		if (c) {
-			tracking = true;
-		} else {
-			tracking = false;
-		}
+		tracking = c;
 	}
 }

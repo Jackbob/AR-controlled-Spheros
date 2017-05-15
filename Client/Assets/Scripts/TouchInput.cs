@@ -32,7 +32,7 @@ public class TouchInput : MonoBehaviour {
 				float tx = touch.position.x;
 				float ty = touch.position.y;
 
-				if(tx > 450 && ty < 450 && GAMEMANAGER.GM.GetTracking()) {
+				if((tx > 450 || ty < 450) && GAMEMANAGER.GM.GetTracking()) {
 					
 					// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 					GameObject pos = GameObject.CreatePrimitive(PrimitiveType.Cylinder);

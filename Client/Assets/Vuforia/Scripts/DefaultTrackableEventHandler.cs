@@ -14,7 +14,7 @@ namespace Vuforia
     public class DefaultTrackableEventHandler : MonoBehaviour,
                                                 ITrackableEventHandler
     {
-		private Text TrackText;
+		
 
         #region PRIVATE_MEMBER_VARIABLES
  
@@ -28,7 +28,6 @@ namespace Vuforia
     
         void Start()
         {
-			TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
             mTrackableBehaviour = GetComponent<TrackableBehaviour>();
             if (mTrackableBehaviour)
             {
@@ -54,13 +53,13 @@ namespace Vuforia
                 newStatus == TrackableBehaviour.Status.TRACKED ||
                 newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
             {
-				TrackText.text = "TRACKING FOUND";
                 OnTrackingFound();
+				GAMEMANAGER.GM.SetTracking (true);
             }
             else
             {
-				TrackText.text = "TRACKING LOST";
                 OnTrackingLost();
+				GAMEMANAGER.GM.SetTracking (false);
             }
         }
 

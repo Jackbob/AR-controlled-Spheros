@@ -8,7 +8,7 @@
 
 #using <System.dll>
 
-const float STOP_RADIUS = 50.0f;
+const float STOP_RADIUS = 30.0f;
 const float CLOSE_RADIUS = 50.0f;
 const int CMD_WAIT = 5;
 const int ACCEPTED_ANGLE_OFFSET = 10;

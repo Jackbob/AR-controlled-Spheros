@@ -29,17 +29,17 @@ void SpheroLogic::moveSphero()
 	if (!moving)
 	{
 		//device->eraseOrbBasicStorage(0);
-		//device->abortMacro();
+		device->abortMacro();
 		float dist;
 		bool finished = false;
 		commandCount = 0;
 		moving = true;
 		for (auto target : *targetPositions) {
 				do {
-					calculatePath(target);
-					Sleep(200);
-					commandCount++;
 					dist = distToPoint(X, Y, target.first, target.second);
+					calculatePath(target);
+					commandCount++;
+					Sleep(200);
 				} while (dist > STOP_RADIUS);
 		}
 		moving = false;
@@ -179,12 +179,12 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 	float distance = distToPoint(X, Y, target.first, target.second);
 	std::cout << std::endl << "Distance to point:  " <<  distance << std::endl;
 	int angle = getAngle(target);
-	if (target == *(targetPositions->end()-1) && distance < STOP_RADIUS)
+	if (distance < STOP_RADIUS)
 	{
-		
-		
+		std::cout << "fisk";
+
 		device->roll(0,  angle, 0);
-		device->abortMacro();
+		
 	}
 	else if (distance < CLOSE_RADIUS && (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET ||  commandCount % CMD_WAIT == 0))
 	{
@@ -198,7 +198,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 		std::cout << "Moving, far" << std::endl;
 		prevAngle = angle;
 
-		device->roll(40, angle, 2);
+		device->roll(45, angle, 2);
 	}
 	else if (commandCount % 10 == 0)
 		device->abortMacro();

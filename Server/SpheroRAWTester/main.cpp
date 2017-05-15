@@ -142,8 +142,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				gotMessage = false;
 			}
 			sphero1->updateSpheroPos(Xpos, Ypos);
-			Sleep(100);
-			//sphero1->keyMove();
+
 			if (GetAsyncKeyState('Q')) {
 				quit = true;
 				break;
@@ -599,8 +598,8 @@ void startCameraTracking()
 		Xpos = (float)redX;
 		Ypos = (float)redY;
 
-		imshow("red image", redthresholdimg);
-		imshow("blue image", bluethresholdimg);
+		//imshow("red image", redthresholdimg);
+		//imshow("blue image", bluethresholdimg);
 
 		// Draw detected blobs as green circles (och blå).
 		// DrawMatchesFlags::DRAW_RICH_KEYPOINTS flag ensures the size of the circle corresponds to the size of blob
@@ -608,7 +607,7 @@ void startCameraTracking()
 		drawKeypoints(frame, bluekeypoints, im_with_keypoints, Scalar(0, 0, 255), DrawMatchesFlags::DEFAULT);
 
 		// Show blobs
-		imshow("keypoints", im_with_keypoints);
+		//imshow("keypoints", im_with_keypoints);
 		waitKey(1);
 
 		switch (waitKey(1)) {

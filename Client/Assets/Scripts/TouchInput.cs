@@ -50,8 +50,12 @@ public class TouchInput : MonoBehaviour {
 
 				GAMEMANAGER.GM.AddToSeq (vX, vZ);
 
-				Destroy (pos, 5.0f);
-			}
+				destroyPos (pos);			}
 		}
+	}
+
+	void destroyPos(GameObject posi){
+
+		Destroy(posi,1.0f);
 	}
 }

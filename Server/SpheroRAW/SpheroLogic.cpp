@@ -135,7 +135,6 @@ void SpheroLogic::testMove()
 
 void SpheroLogic::setOrientation()
 {	
-	device->setRGBLedOutput(255, 0, 0, 1);
 	device->abortMacro();
 	device->roll(40, 0, 1);
 
@@ -198,7 +197,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 		std::cout << "Moving, far" << std::endl;
 		prevAngle = angle;
 
-		device->roll(45, angle, 2);
+		device->roll(35, angle, 2);
 	}
 	else if (commandCount % 10 == 0)
 		device->abortMacro();
@@ -210,6 +209,12 @@ void SpheroLogic::rest()
 	while (!spheroConnected())
 		device->connect();
 	PrintDeviceStatus("Connecting: ", device);
+}
+
+void SpheroLogic::changeColor(int R, int G, int B)
+{
+	device->abortMacro();
+	device->setRGBLedOutput(R, G, B, 1);
 }
 
 void SpheroLogic::setOffsetAngle()

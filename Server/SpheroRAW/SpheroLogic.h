@@ -44,5 +44,6 @@ public:
 	void testMove();
 	void setOrientation();
 	void rest();
+	void changeColor(int R, int G, int B);
 };
 

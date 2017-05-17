@@ -114,6 +114,10 @@ void OrbBasicAppendLine(ISpheroDevice* device, std::string lineText) {
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+
+	Thread^ cameraThread = gcnew Thread(gcnew ThreadStart(startCameraTracking));
+	cameraThread->Start();
+
     //------------------------------------------------------------------------------------------------------------------
     // Create device 
 	SpheroLogic^ sphero1 = gcnew SpheroLogic("Sphero-WRG");
@@ -123,8 +127,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	Thread^ serverThread = gcnew Thread(gcnew ThreadStart(startServer));
 	serverThread->Start();
 
-	Thread^ cameraThread = gcnew Thread(gcnew ThreadStart(startCameraTracking));
-	cameraThread->Start();
 
     while(!quit) {
         //------------------------------------------------------------------------------------------------------------------
@@ -137,13 +139,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		sphero1->changeColor(255, 0, 0);
 		Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
 		orientation1Thread->Start();
-		sphero2->changeColor(255, 255, 0);
+		sphero2->changeColor(0, 255, 0);
 
         while(sphero1->spheroConnected()) {
 
 			if (gotMessage)
 			{
-				std::cout << "fisk2" << std::endl;
 				setTarget(sphero1, sphero2);
 				gotMessage = false;
 			}
@@ -156,9 +157,7 @@ int _tmain(int argc, _TCHAR* argv[])
 				break;
 			}
 			if (GetAsyncKeyState('P')) {
-				sphero1->rest();
-				Thread^ orientationThread1 = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
-				orientationThread1->Start();
+				std::cout << "Sphero 1 position: " << X1pos / 10.0f << "	" << Y1pos / 10.0f << std::endl;
 			}
         //sphero1->printDeviceStatus("Poll loop exited");
 
@@ -190,7 +189,7 @@ void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
 	int spheroChoice;
 	stream >> spheroChoice;
 	response = stream.str();
-	std::cout << response;
+	std::cout << "Response string: " << response << std::endl;
 	if (spheroChoice == 0)
 	{
 		sphero1->setTarget(response);

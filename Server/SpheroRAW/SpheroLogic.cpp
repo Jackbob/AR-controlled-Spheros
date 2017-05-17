@@ -103,10 +103,11 @@ void SpheroLogic::setTarget(std::string targetString)
 		float x, y;
 		std::stringstream stream = std::stringstream(targetString);
 		targetPositions->clear();
-		while (stream >> x && stream >> y)
+		stream >> x;
+		while (stream >> y && stream >> x)
 		{
-			std::cout << -y << "     " << x << std::endl;
-			targetPositions->push_back(std::make_pair(-y * 100.0f, x*100.0f));
+			std::cout << std::endl << -x*100.0f << "     " << y*100.0f << std::endl;
+			targetPositions->push_back(std::make_pair(-x * 100.0f, y*100.0f));
 		}
 	}
 }
@@ -176,17 +177,18 @@ float SpheroLogic::distToPoint(float X1, float Y1, float Xtarget, float Ytarget)
 void SpheroLogic::calculatePath(std::pair<float, float> target)
 {
 	float distance = distToPoint(X, Y, target.first, target.second);
-	std::cout << std::endl << "Distance to point:  " <<  distance << std::endl;
 	int angle = getAngle(target);
 	if (distance < STOP_RADIUS)
 	{
-		std::cout << "fisk";
+		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
+		std::cout << "STOPPING";
 
 		device->roll(0,  angle, 0);
 		
 	}
 	else if (distance < CLOSE_RADIUS && (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET ||  commandCount % CMD_WAIT == 0))
 	{
+		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
 		std::cout << "Moving, close" << std::endl;
 		prevAngle = angle;
 		
@@ -194,6 +196,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 	}
 	else if (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET || commandCount % CMD_WAIT == 0)
 	{
+		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
 		std::cout << "Moving, far" << std::endl;
 		prevAngle = angle;
 

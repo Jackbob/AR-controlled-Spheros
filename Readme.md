@@ -5,6 +5,8 @@ B.Sc project made by students on the M.Sc in Media Technology programme.
 START PROGRAM
 %%%%%%%%%%%%%
 
+RETARGET SOLUTION TO WORK ON NEW WINDOWS PC (BUILDS ONLY FOR 64BIT)
+
 Setup "hotspot" or network and connect with PC and tablet.
 
 Pair the sphero via bluetooth to the PC.

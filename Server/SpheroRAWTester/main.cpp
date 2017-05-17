@@ -56,6 +56,8 @@ using namespace cv;
 
 void startServer();
 
+void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2);
+
 void startCameraTracking();
 
 int readCalibrationData(Mat& cameraMatrix, Mat& extrinsicParam);
@@ -78,7 +80,7 @@ void calculateNewBase(std::vector<double> x0, std::vector<double> x1, std::vecto
 
 std::string response;
 bool gotMessage = false;
-float Xpos, Ypos;
+float X1pos, Y1pos, X2pos, Y2pos;
 //======================================================================================================================
 
 void PrintDeviceStatus(std::string action, ISpheroDevice* device) {
@@ -115,6 +117,7 @@ int _tmain(int argc, _TCHAR* argv[])
     //------------------------------------------------------------------------------------------------------------------
     // Create device 
 	SpheroLogic^ sphero1 = gcnew SpheroLogic("Sphero-WRG");
+	SpheroLogic^ sphero2 = gcnew SpheroLogic("Sphero-RGO");
     bool quit = false;
 
 	Thread^ serverThread = gcnew Thread(gcnew ThreadStart(startServer));
@@ -131,20 +134,25 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		Thread^ orientationThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
 		orientationThread->Start();
+		sphero1->changeColor(255, 0, 0);
+		Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
+		orientation1Thread->Start();
+		sphero2->changeColor(255, 255, 0);
 
         while(sphero1->spheroConnected()) {
 
 			if (gotMessage)
 			{
-				sphero1->setTarget(response);
-				Thread^ spheroThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
-				spheroThread->Start();
+				std::cout << "fisk2" << std::endl;
+				setTarget(sphero1, sphero2);
 				gotMessage = false;
 			}
-			sphero1->updateSpheroPos(Xpos, Ypos);
+			sphero1->updateSpheroPos(X1pos, Y1pos);
+			sphero2->updateSpheroPos(X2pos, Y2pos);
 
 			if (GetAsyncKeyState('Q')) {
 				quit = true;
+				sphero1->setTarget("0 0");
 				break;
 			}
 			if (GetAsyncKeyState('P')) {
@@ -175,6 +183,29 @@ int _tmain(int argc, _TCHAR* argv[])
 /**************************************************
 * Functions
 **************************************************/
+
+void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
+{
+	std::stringstream stream = std::stringstream(response);
+	int spheroChoice;
+	stream >> spheroChoice;
+	response = stream.str();
+	std::cout << response;
+	if (spheroChoice == 0)
+	{
+		sphero1->setTarget(response);
+		Thread^ sphero1Thread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
+		sphero1Thread->Start();
+	}
+	else
+	{
+		sphero2->setTarget(response);
+		Thread^ sphero2Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::moveSphero));
+		sphero2Thread->Start();
+	}
+
+	
+}
 
 // read camera matrix and extrinsics from XML-file
 int readCalibrationData(Mat& cameraMatrix, Mat& extrinsicParam) {
@@ -595,11 +626,14 @@ void startCameraTracking()
 
 		//std::cout << "red : " << redintersection;
 		//std::cout << "   Red Pos : " << redX << " , " << redY << "   Blue Pos : " << blueX << " , " << blueY << std::endl;
-		Xpos = (float)redX;
-		Ypos = (float)redY;
+		X1pos = (float)redX;
+		Y1pos = (float)redY;
+		X2pos = (float)blueX;
+		Y2pos = (float)blueY;
 
-		//imshow("red image", redthresholdimg);
-		//imshow("blue image", bluethresholdimg);
+
+		imshow("red image", redthresholdimg);
+		imshow("blue image", bluethresholdimg);
 
 		// Draw detected blobs as green circles (och blå).
 		// DrawMatchesFlags::DRAW_RICH_KEYPOINTS flag ensures the size of the circle corresponds to the size of blob
@@ -607,7 +641,7 @@ void startCameraTracking()
 		drawKeypoints(frame, bluekeypoints, im_with_keypoints, Scalar(0, 0, 255), DrawMatchesFlags::DEFAULT);
 
 		// Show blobs
-		//imshow("keypoints", im_with_keypoints);
+		imshow("keypoints", im_with_keypoints);
 		waitKey(1);
 
 		switch (waitKey(1)) {

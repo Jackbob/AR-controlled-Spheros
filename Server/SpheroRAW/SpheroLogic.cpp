@@ -136,11 +136,13 @@ void SpheroLogic::testMove()
 
 void SpheroLogic::setOrientation()
 {	
+	Sleep(5000);
+	float startX = X, startY = Y;
 	device->abortMacro();
 	device->roll(40, 0, 1);
 
-	Sleep(6000);
-	setOffsetAngle();
+	Sleep(5000);
+	setOffsetAngle(startX, startY);
 
 }
 
@@ -220,10 +222,10 @@ void SpheroLogic::changeColor(int R, int G, int B)
 	device->setRGBLedOutput(R, G, B, 1);
 }
 
-void SpheroLogic::setOffsetAngle()
+void SpheroLogic::setOffsetAngle(float startX, float startY)
 {
 
-	float angle = atan2(Y,X);
+	float angle = atan2(Y - startY, X - startX);
 	angle = angle * (180.0f / 3.14f);
 
 	if (angle < 180.0f && angle > 90.0f)

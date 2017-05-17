@@ -26,7 +26,7 @@ private:
 	void PrintDeviceStatus(std::string action, ISpheroDevice* device);
 	float distToPoint(float X, float Y, float Xtarget, float Ytarget);
 	void calculatePath(std::pair<float,float> target);
-	void setOffsetAngle();
+	void setOffsetAngle(float startX, float startY);
 	
 	int getAngle(std::pair<float, float> target);
 

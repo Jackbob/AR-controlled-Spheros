@@ -139,7 +139,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		sphero1->changeColor(255, 0, 0);
 		Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
 		orientation1Thread->Start();
-		sphero2->changeColor(0, 255, 0);
+		sphero2->changeColor(150, 150, 0);
 
         while(sphero1->spheroConnected()) {
 
@@ -153,7 +153,11 @@ int _tmain(int argc, _TCHAR* argv[])
 
 			if (GetAsyncKeyState('Q')) {
 				quit = true;
-				sphero1->setTarget("0 0");
+				response = "0 0 0";
+				setTarget(sphero1, sphero2);
+				Sleep(3000);
+				response = "1 0 0";
+				setTarget(sphero1, sphero2);
 				break;
 			}
 			if (GetAsyncKeyState('P')) {
@@ -438,11 +442,11 @@ void startCameraTracking()
 	int redMinV = 200;
 	int redMaxV = 240;
 
-	int blueMinH = 80;
-	int blueMaxH = 100;
-	int blueMinS = 230;
-	int blueMaxS = 255;
-	int blueMinV = 210;
+	int blueMinH = 75;
+	int blueMaxH = 97;
+	int blueMinS = 100;
+	int blueMaxS = 240;
+	int blueMinV = 125;
 	int blueMaxV = 250;
 
 	// Setup SimpleBlobDetector parameters.
@@ -505,8 +509,8 @@ void startCameraTracking()
 		// threshold blue
 		inRange(imgHSV, Scalar(blueMinH, blueMinS, blueMinV), Scalar(blueMaxH, blueMaxS, blueMaxV), bluethresholdimg);
 		//morphological closing (fill small holes in the foreground)
-		dilate(bluethresholdimg, bluethresholdimg, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
-		erode(bluethresholdimg, bluethresholdimg, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)));
+		dilate(bluethresholdimg, bluethresholdimg, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)));
+		erode(bluethresholdimg, bluethresholdimg, getStructuringElement(MORPH_ELLIPSE, Size(10, 10)));
 
 		// Detect red blobs
 		detector->detect(redthresholdimg, redkeypoints);
@@ -701,6 +705,12 @@ void startServer()
 			NetworkStream^ stream = client->GetStream();
 			Int32 i;
 
+			/*
+			while (client->Connected)
+			{
+
+			}
+			*/
 			// Loop to receive all the data sent by the client.
 			while (i = stream->Read(bytes, 0, bytes->Length))
 			{

@@ -28,7 +28,6 @@ void SpheroLogic::moveSphero()
 
 	if (!moving)
 	{
-		//device->eraseOrbBasicStorage(0);
 		device->abortMacro();
 		float dist;
 		bool finished = false;

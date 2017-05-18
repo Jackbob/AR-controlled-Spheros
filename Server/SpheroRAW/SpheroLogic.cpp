@@ -1,7 +1,7 @@
 #include "SpheroLogic.h"
 
 
-
+//Constructor and sphero connector
 SpheroLogic::SpheroLogic(const char* name)
 {
 	device = SpheroRAW_Create(name);
@@ -14,15 +14,14 @@ SpheroLogic::SpheroLogic(const char* name)
 	moving = false;
 }
 
-
+//Destructor
 SpheroLogic::~SpheroLogic()
 {
 	delete targetPositions;
 	SpheroRAW_Destroy(device);
 }
 
-
-
+//Sphero movement function (to it's targets) (MUST BE CALLED AS SEPERATE THREAD)
 void SpheroLogic::moveSphero()
 {
 
@@ -33,6 +32,7 @@ void SpheroLogic::moveSphero()
 		bool finished = false;
 		commandCount = 0;
 		moving = true;
+		//Loop through targets and move towards them in order
 		for (auto target : *targetPositions) {
 				do {
 					dist = distToPoint(X, Y, target.first, target.second);
@@ -50,6 +50,7 @@ void SpheroLogic::moveSphero()
 	}
 }
 
+//Func for moving sphero with keys
 void SpheroLogic::keyMove()
 {
 	if (GetAsyncKeyState('W'))
@@ -95,14 +96,17 @@ void SpheroLogic::keyMove()
 	}
 }
 
+//Sets positions for the sphero targets
 void SpheroLogic::setTarget(std::string targetString)
 {
+	//Set new target if sphero not moving
 	if (!moving)
 	{
 		float x, y;
 		std::stringstream stream = std::stringstream(targetString);
 		targetPositions->clear();
 		stream >> x;
+		//Read tablet output
 		while (stream >> y && stream >> x)
 		{
 			std::cout << std::endl << -x*100.0f << "     " << y*100.0f << std::endl;
@@ -119,11 +123,13 @@ bool SpheroLogic::spheroConnected()
 	return false;
 }
 
+//Public func for printing sphero status
 void SpheroLogic::printDeviceStatus(std::string action)
 {
 	PrintDeviceStatus(action, device);
 }
 
+//Tests the sphero movement (only direction)
 void SpheroLogic::testMove()
 {
 	int angle = getAngle(targetPositions->at(0));
@@ -133,19 +139,22 @@ void SpheroLogic::testMove()
 	device->roll(60, angle, 1);
 }
 
+//Sets the orientation of sphero
 void SpheroLogic::setOrientation()
 {	
+	//Read current position and roll sphero
 	Sleep(5000);
 	float startX = X, startY = Y;
 	device->abortMacro();
 	device->roll(40, 0, 1);
 
+	//Read angle of previous movement
 	Sleep(5000);
 	setOffsetAngle(startX, startY);
 
 }
 
-
+//Prints sphero status to console
 void SpheroLogic::PrintDeviceStatus(std::string action, ISpheroDevice * device)
 {
 	std::cout << "Action: " << action << " Result: ";
@@ -168,7 +177,7 @@ void SpheroLogic::PrintDeviceStatus(std::string action, ISpheroDevice * device)
 	std::cout << std::endl;
 }
 
-
+//Calculate distance from one point to another
 float SpheroLogic::distToPoint(float X1, float Y1, float Xtarget, float Ytarget)
 {
 	return sqrt(pow(X1-Xtarget, 2.0f) + pow(Y1-Ytarget,2.0f));
@@ -179,6 +188,8 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 {
 	float distance = distToPoint(X, Y, target.first, target.second);
 	int angle = getAngle(target);
+
+	//Stop sphero if close to target
 	if (distance < STOP_RADIUS)
 	{
 		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
@@ -187,6 +198,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 		device->roll(0,  angle, 0);
 		
 	}
+	//Roll sphero slow if within CLOSE_RADIUS
 	else if (distance < CLOSE_RADIUS && (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET ||  commandCount % CMD_WAIT == 0))
 	{
 		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
@@ -195,6 +207,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 		
 		device->roll(30, angle, 2);
 	}
+	//Roll sphero faster if far away
 	else if (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET || commandCount % CMD_WAIT == 0)
 	{
 		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
@@ -203,10 +216,12 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 
 		device->roll(35, angle, 2);
 	}
+	//Clear sphero command buffer every 10th command
 	else if (commandCount % 10 == 0)
 		device->abortMacro();
 }
 
+//Reconnect sphero
 void SpheroLogic::rest()
 {
 	device->sleep();
@@ -215,12 +230,14 @@ void SpheroLogic::rest()
 	PrintDeviceStatus("Connecting: ", device);
 }
 
+//Change sphero color
 void SpheroLogic::changeColor(int R, int G, int B)
 {
 	device->abortMacro();
 	device->setRGBLedOutput(R, G, B, 1);
 }
 
+//Calculates offset angle for sphero
 void SpheroLogic::setOffsetAngle(float startX, float startY)
 {
 
@@ -237,6 +254,7 @@ void SpheroLogic::setOffsetAngle(float startX, float startY)
 	offAngle = angle;
 }
 
+//Updates spheros current possition (cm from middle)
 void SpheroLogic::updateSpheroPos(float Xpos, float Ypos)
 {
 	X = Xpos/10.0f;
@@ -246,23 +264,20 @@ void SpheroLogic::updateSpheroPos(float Xpos, float Ypos)
 //Calculate angle to target
 int SpheroLogic::getAngle(std::pair<float, float> target)
 {
-
+	//Universal angle to target
 	float angle = atan2(target.second - Y , target.first - X);
 	angle = angle * (180.0f / 3.14f);
 
-	//std::cout << "Angle:   " << angle << "     ";
-	
+	//To sphero angle
 	if (angle < 180.0f && angle > 90.0f)
 		angle = 450.0f - angle;
 	else
 		angle = 90.0f - angle;
 
-	//std::cout << "SpheroAngle:     " << angle;
+	//Compensate for offset
 	angle = angle - offAngle;
 	if (angle < 0)
 		angle = 360 + angle;
-
-	//std::cout << "    offsettangle:  " << angle << std::endl;
 
 	return int(angle);
 }

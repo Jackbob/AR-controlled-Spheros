@@ -78,8 +78,8 @@ void setCameraSettings(VideoCapture &capture);
 
 void calculateNewBase(std::vector<double> x0, std::vector<double> x1, std::vector<double> x2, a3d::Vector3d &e0, a3d::Vector3d &e1);
 
-std::string response;
-bool gotMessage = false;
+std::string response, tabletstring;
+bool gotMessage = false, sendMessage = false;
 float X1pos, Y1pos, X2pos, Y2pos;
 //======================================================================================================================
 
@@ -712,24 +712,32 @@ void startServer()
 			}
 			*/
 			// Loop to receive all the data sent by the client.
-			while (i = stream->Read(bytes, 0, bytes->Length))
+			while (client->Connected)
 			{
+				
+				if (i = stream->Read(bytes, 0, bytes->Length))
+				{
+					// Translate data bytes to a ASCII String*.
+					data = Text::Encoding::ASCII->GetString(bytes, 0, i);
+					Console::WriteLine("Received: {0}", data);
+					response = msclr::interop::marshal_as<std::string>(data);
+					gotMessage = true;
+				}
 
-				// Translate data bytes to a ASCII String*.
-				data = Text::Encoding::ASCII->GetString(bytes, 0, i);
-				Console::WriteLine("Received: {0}", data);
-				response = msclr::interop::marshal_as<std::string>(data);
-				gotMessage = true;
 
-				/*
-				// Process the data sent by the client.
-				data = data->ToUpper();
-				cli::array<Byte>^msg = Text::Encoding::ASCII->GetBytes(data);
+				if (sendMessage)
+				{
+					// Process the data sent by the client.
+					data = data->ToUpper();
+					cli::array<Byte>^msg = Text::Encoding::ASCII->GetBytes(data);
 
-				// Send back a response.
-				stream->Write(msg, 0, msg->Length);
-				Console::WriteLine("Sent: {0}", data);
-				*/
+					// Send back a response.
+					stream->Write(msg, 0, msg->Length);
+					Console::WriteLine("Sent: {0}", data);
+					sendMessage = false;
+				}
+				
+				
 			}
 
 			// Shutdown and end connection

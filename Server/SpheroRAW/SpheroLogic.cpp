@@ -96,6 +96,14 @@ void SpheroLogic::keyMove()
 	}
 }
 
+bool SpheroLogic::spheroClick(float clickedX, float clickedY)
+{
+	if (distToPoint(X, Y, clickedX, clickedY) <= 10)
+		return true;
+
+	return false;
+}
+
 //Sets positions for the sphero targets
 void SpheroLogic::setTarget(std::string targetString)
 {

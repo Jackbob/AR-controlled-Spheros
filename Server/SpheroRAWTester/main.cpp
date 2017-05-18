@@ -58,6 +58,10 @@ void startServer();
 
 void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2);
 
+void setTarget2(SpheroLogic^ sphero1, SpheroLogic^ sphero2);
+
+void generateGameObjects();
+
 void startCameraTracking();
 
 int readCalibrationData(Mat& cameraMatrix, Mat& extrinsicParam);
@@ -81,6 +85,7 @@ void calculateNewBase(std::vector<double> x0, std::vector<double> x1, std::vecto
 std::string response, tabletstring;
 bool gotMessage = false, sendMessage = false;
 float X1pos, Y1pos, X2pos, Y2pos;
+int spheroSelection = 1;
 //======================================================================================================================
 
 void PrintDeviceStatus(std::string action, ISpheroDevice* device) {
@@ -139,13 +144,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		sphero1->changeColor(255, 0, 0);
 		Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
 		orientation1Thread->Start();
-		sphero2->changeColor(150, 150, 0);
+		sphero2->changeColor(183, 0, 214);
 
-        while(sphero1->spheroConnected()) {
+        while(sphero1->spheroConnected() && sphero2->spheroConnected()) {
 
 			if (gotMessage)
 			{
-				setTarget(sphero1, sphero2);
+				setTarget2(sphero1, sphero2);
 				gotMessage = false;
 			}
 			sphero1->updateSpheroPos(X1pos, Y1pos);
@@ -187,6 +192,11 @@ int _tmain(int argc, _TCHAR* argv[])
 * Functions
 **************************************************/
 
+void generateGameObjects()
+{
+
+}
+
 void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
 {
 	std::stringstream stream = std::stringstream(response);
@@ -208,6 +218,36 @@ void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
 	}
 
 	
+}
+
+void setTarget2(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
+{
+	std::stringstream stream = std::stringstream(response);
+	float firstX, firstY;
+	stream >> spheroSelection; ///////
+	stream >> firstY >> firstX;
+	firstX = -firstX * 100.0f;
+	firstY = firstY * 100.0f;
+
+	if (sphero1->spheroClick(firstX, firstY))
+		spheroSelection = 1;
+	else if (sphero2->spheroClick(firstX, firstY))
+		spheroSelection = 0;
+
+	response = stream.str();
+	std::cout << "Response string: " << response << std::endl;
+	if (spheroSelection == 1)
+	{
+		sphero1->setTarget(response);
+		Thread^ sphero1Thread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
+		sphero1Thread->Start();
+	}
+	else if(spheroSelection == 0)
+	{
+		sphero2->setTarget(response);
+		Thread^ sphero2Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::moveSphero));
+		sphero2Thread->Start();
+	}
 }
 
 // read camera matrix and extrinsics from XML-file
@@ -442,12 +482,12 @@ void startCameraTracking()
 	int redMinV = 200;
 	int redMaxV = 240;
 
-	int blueMinH = 75;
-	int blueMaxH = 97;
-	int blueMinS = 100;
-	int blueMaxS = 240;
-	int blueMinV = 125;
-	int blueMaxV = 250;
+	int blueMinH = 140;
+	int blueMaxH = 150;
+	int blueMinS = 220;
+	int blueMaxS = 255;
+	int blueMinV = 200;
+	int blueMaxV = 255;
 
 	// Setup SimpleBlobDetector parameters.
 	SimpleBlobDetector::Params params;
@@ -705,16 +745,10 @@ void startServer()
 			NetworkStream^ stream = client->GetStream();
 			Int32 i;
 
-			/*
-			while (client->Connected)
-			{
-
-			}
-			*/
 			// Loop to receive all the data sent by the client.
 			while (client->Connected)
 			{
-				
+				// Attempt to recieve message
 				if (i = stream->Read(bytes, 0, bytes->Length))
 				{
 					// Translate data bytes to a ASCII String*.
@@ -724,14 +758,15 @@ void startServer()
 					gotMessage = true;
 				}
 
-
+				// Attempt to send message
 				if (sendMessage)
 				{
-					// Process the data sent by the client.
+					// Process string to be sent.
+					data = gcnew System::String(tabletstring.c_str());
 					data = data->ToUpper();
 					cli::array<Byte>^msg = Text::Encoding::ASCII->GetBytes(data);
 
-					// Send back a response.
+					// Send a response.
 					stream->Write(msg, 0, msg->Length);
 					Console::WriteLine("Sent: {0}", data);
 					sendMessage = false;

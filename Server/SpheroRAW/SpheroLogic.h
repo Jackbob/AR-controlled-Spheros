@@ -45,5 +45,8 @@ public:
 	void setOrientation();
 	void rest();
 	void changeColor(int R, int G, int B);
+	float getSpheroX() { return X; }
+	float getSpheroY() { return Y; }
+	bool spheroClick(float clickedX, float clickedY);
 };
 

@@ -82,10 +82,17 @@ void setCameraSettings(VideoCapture &capture);
 
 void calculateNewBase(std::vector<double> x0, std::vector<double> x1, std::vector<double> x2, a3d::Vector3d &e0, a3d::Vector3d &e1);
 
+void checkSpheroArrivals(SpheroLogic^ sphero1, SpheroLogic^ sphero2);
+
 std::string response, tabletstring;
 bool gotMessage = false, sendMessage = false;
 float X1pos, Y1pos, X2pos, Y2pos;
-int spheroSelection = 1;
+int spheroSelection = 1, responsePacket = 0;
+
+//Server port and adress
+Int32 port = 6321;
+std::string IP = "192.168.43.236";
+
 //======================================================================================================================
 
 void PrintDeviceStatus(std::string action, ISpheroDevice* device) {
@@ -132,19 +139,18 @@ int _tmain(int argc, _TCHAR* argv[])
 	Thread^ serverThread = gcnew Thread(gcnew ThreadStart(startServer));
 	serverThread->Start();
 
+	Thread^ orientationThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
+	orientationThread->Start();
+	sphero1->changeColor(255, 0, 0);
+	Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
+	orientation1Thread->Start();
+	sphero2->changeColor(183, 0, 214);
 
     while(!quit) {
         //------------------------------------------------------------------------------------------------------------------
         // Connect 
         //------------------------------------------------------------------------------------------------------------------
         // Send/Receive Data
-
-		Thread^ orientationThread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::setOrientation));
-		orientationThread->Start();
-		sphero1->changeColor(255, 0, 0);
-		Thread^ orientation1Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::setOrientation));
-		orientation1Thread->Start();
-		sphero2->changeColor(183, 0, 214);
 
         while(sphero1->spheroConnected() && sphero2->spheroConnected()) {
 
@@ -153,6 +159,8 @@ int _tmain(int argc, _TCHAR* argv[])
 				setTarget2(sphero1, sphero2);
 				gotMessage = false;
 			}
+			//checkSpheroArrivals(sphero1, sphero2);
+
 			sphero1->updateSpheroPos(X1pos, Y1pos);
 			sphero2->updateSpheroPos(X2pos, Y2pos);
 
@@ -168,9 +176,16 @@ int _tmain(int argc, _TCHAR* argv[])
 			if (GetAsyncKeyState('P')) {
 				std::cout << "Sphero 1 position: " << X1pos / 10.0f << "	" << Y1pos / 10.0f << std::endl;
 			}
+			if (GetAsyncKeyState('R')) {
+				std::cout << "Attempting reconnect: " << std::endl;
+				sphero1->disconnect();
+				sphero2->disconnect();
+			}
         //sphero1->printDeviceStatus("Poll loop exited");
 
         }
+		sphero1->reconnect();
+		sphero2->reconnect();
         Sleep(100);
     }
 
@@ -199,18 +214,14 @@ void generateGameObjects()
 
 void setTarget(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
 {
-	std::stringstream stream = std::stringstream(response);
-	int spheroChoice;
-	stream >> spheroChoice;
-	response = stream.str();
 	std::cout << "Response string: " << response << std::endl;
-	if (spheroChoice == 0)
+	if (spheroSelection == 1)
 	{
 		sphero1->setTarget(response);
 		Thread^ sphero1Thread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
 		sphero1Thread->Start();
 	}
-	else
+	else if(spheroSelection == 2)
 	{
 		sphero2->setTarget(response);
 		Thread^ sphero2Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::moveSphero));
@@ -224,30 +235,91 @@ void setTarget2(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
 {
 	std::stringstream stream = std::stringstream(response);
 	float firstX, firstY;
-	stream >> spheroSelection; ///////
+	stream >> firstX; ///////
 	stream >> firstY >> firstX;
 	firstX = -firstX * 100.0f;
 	firstY = firstY * 100.0f;
 
 	if (sphero1->spheroClick(firstX, firstY))
-		spheroSelection = 1;
-	else if (sphero2->spheroClick(firstX, firstY))
 		spheroSelection = 0;
+	else if (sphero2->spheroClick(firstX, firstY))
+		spheroSelection = 1;
 
 	response = stream.str();
 	std::cout << "Response string: " << response << std::endl;
-	if (spheroSelection == 1)
+	if (spheroSelection == 0)
 	{
 		sphero1->setTarget(response);
 		Thread^ sphero1Thread = gcnew Thread(gcnew ThreadStart(sphero1, &SpheroLogic::moveSphero));
 		sphero1Thread->Start();
 	}
-	else if(spheroSelection == 0)
+	else if(spheroSelection == 1)
 	{
 		sphero2->setTarget(response);
 		Thread^ sphero2Thread = gcnew Thread(gcnew ThreadStart(sphero2, &SpheroLogic::moveSphero));
 		sphero2Thread->Start();
 	}
+}
+
+// Checks if the click sent is on top of a sphero
+void checkClick(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
+{
+	if (!sendMessage)
+	{
+		std::stringstream stream = std::stringstream(response);
+		float firstX, firstY;
+		stream >> spheroSelection; ///////
+		stream >> firstY >> firstX;
+		firstX = -firstX * 100.0f;
+		firstY = firstY * 100.0f;
+
+		//Sets choosen sphero to the one clicked and queue a message
+		if (sphero1->spheroClick(firstX, firstY))
+		{
+			stream.str(std::string());
+			stream << 0 << 1 << sphero1->getSpheroX() << sphero1->getSpheroY();
+			spheroSelection = 1;
+			tabletstring = stream.str();
+			sendMessage = true;
+		}
+		else if (sphero2->spheroClick(firstX, firstY))
+		{
+			stream.str(std::string());
+			stream << 0 << 2 << sphero2->getSpheroX() << sphero2->getSpheroY();
+			spheroSelection = 2;
+			tabletstring = stream.str();
+			sendMessage = true;
+		}
+	}
+}
+
+void checkSpheroArrivals(SpheroLogic^ sphero1, SpheroLogic^ sphero2)
+{
+	
+	int sphero1TargetsRemaining = sphero1->getSpheroArrivals();
+	int sphero2TargetsRemaining = sphero2->getSpheroArrivals();
+	/*
+	if (sphero1TargetsRemaining != 0)
+	{
+		std::stringstream stream = std::stringstream(response);
+		stream << 1 << 1 << sphero1TargetsRemaining;
+		
+		while(sendMessage){}
+		tabletstring = stream.str();
+		std::cout << tabletstring << std::endl;
+		sendMessage = true;
+	}
+	if (sphero2TargetsRemaining != 0)
+	{
+		std::stringstream stream = std::stringstream(response);
+		stream << 1 << 2 << sphero2TargetsRemaining;
+		
+		while (sendMessage) {}
+		tabletstring = stream.str();
+		std::cout << tabletstring << std::endl;
+		sendMessage = true;
+	}
+	*/
 }
 
 // read camera matrix and extrinsics from XML-file
@@ -715,10 +787,9 @@ void startServer()
 {
 	try
 	{
-
-		// Set the TcpListener on port 13000.
+		//Server port and adress
 		Int32 port = 6321;
-		IPAddress^ localAddr = IPAddress::Parse("192.168.43.236");
+		IPAddress^ localAddr = IPAddress::Parse(gcnew System::String(IP.c_str()));
 
 		// TcpListener* server = new TcpListener(port);
 		TcpListener^ server = gcnew TcpListener(localAddr, port);
@@ -755,6 +826,8 @@ void startServer()
 					data = Text::Encoding::ASCII->GetString(bytes, 0, i);
 					Console::WriteLine("Received: {0}", data);
 					response = msclr::interop::marshal_as<std::string>(data);
+					std::stringstream responsestream = std::stringstream(response);
+					responsestream >> responsePacket;
 					gotMessage = true;
 				}
 

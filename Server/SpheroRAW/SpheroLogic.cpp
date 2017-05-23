@@ -4,11 +4,11 @@
 //Constructor and sphero connector
 SpheroLogic::SpheroLogic(const char* name)
 {
+	spheroName = name;
 	device = SpheroRAW_Create(name);
 	while(!spheroConnected())
 		device->connect();
 	PrintDeviceStatus("Connecting: ", device);
-	device->setAutoReconnect();
 	device->abortMacro();
 	targetPositions = new std::vector<std::pair<float, float>>;
 	moving = false;
@@ -104,6 +104,32 @@ bool SpheroLogic::spheroClick(float clickedX, float clickedY)
 	return false;
 }
 
+int SpheroLogic::getSpheroArrivals()
+{
+	if (prevTargetsRemaining != currentTargetsRemaining)
+	{
+		prevTargetsRemaining = currentTargetsRemaining;
+		return currentTargetsRemaining;
+	}
+
+	return 0;
+}
+
+void SpheroLogic::reconnect()
+{
+	if (!spheroConnected())
+	{
+		std::cout << spheroName << "  has disconnected, attempting to reconnect....	";
+		device = SpheroRAW_Create(spheroName);
+		Sleep(1000);
+		while (!spheroConnected())
+			device->connect();
+
+		PrintDeviceStatus("Connecting: ", device);
+		Sleep(1000);
+	}
+}
+
 //Sets positions for the sphero targets
 void SpheroLogic::setTarget(std::string targetString)
 {
@@ -120,6 +146,8 @@ void SpheroLogic::setTarget(std::string targetString)
 			std::cout << std::endl << -x*100.0f << "     " << y*100.0f << std::endl;
 			targetPositions->push_back(std::make_pair(-x * 100.0f, y*100.0f));
 		}
+		currentTargetsRemaining = targetPositions->size();
+		prevTargetsRemaining = currentTargetsRemaining;
 	}
 }
 
@@ -197,12 +225,13 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 	float distance = distToPoint(X, Y, target.first, target.second);
 	int angle = getAngle(target);
 
-	//Stop sphero if close to target
+	//Stop sphero if within STOP_RADIUS
 	if (distance < STOP_RADIUS)
 	{
-		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
 		std::cout << "STOPPING";
+		std::cout << std::endl << "Distance to point:  " << distance << std::endl;
 
+		currentTargetsRemaining--;
 		device->roll(0,  angle, 0);
 		
 	}

@@ -11,17 +11,18 @@
 const float STOP_RADIUS = 30.0f;
 const float CLOSE_RADIUS = 50.0f;
 const int CMD_WAIT = 5;
-const int ACCEPTED_ANGLE_OFFSET = 10;
+const int ACCEPTED_ANGLE_OFFSET = 5;
 
 public ref class SpheroLogic
 {
 private:
 	ISpheroDevice* device;
 	std::vector<std::pair<float, float>>* targetPositions;
+	const char* spheroName;
 	float X, Y;
 	bool moving;
 	int commandCount;
-	int prevAngle;
+	int prevAngle, currentTargetsRemaining, prevTargetsRemaining;
 
 	void PrintDeviceStatus(std::string action, ISpheroDevice* device);
 	float distToPoint(float X, float Y, float Xtarget, float Ytarget);
@@ -48,5 +49,9 @@ public:
 	float getSpheroX() { return X; }
 	float getSpheroY() { return Y; }
 	bool spheroClick(float clickedX, float clickedY);
+	int getSpheroArrivals();
+
+	void reconnect();
+	void disconnect() { device->disconnect(); }
 };
 

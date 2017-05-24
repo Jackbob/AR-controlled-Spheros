@@ -5,7 +5,6 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GAMEMANAGER: MonoBehaviour
 {
 
@@ -15,7 +14,6 @@ public class GAMEMANAGER: MonoBehaviour
 	public bool tracking;
 	public bool chosen;
 	public bool onTargetpos;
-	public bool sphero;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -39,7 +37,6 @@ public class GAMEMANAGER: MonoBehaviour
 		tracking = false;
 		chosen = false;
 		onTargetpos = false;
-		sphero = false;
 	}
 
 	public void AddToSeq(float x, float z){
@@ -56,6 +53,8 @@ public class GAMEMANAGER: MonoBehaviour
 		SendString(Seq);
 		Seq = "";
 		chosen = false;
+		View.Vw.redFeedback.enabled = false;
+		View.Vw.blueFeedback.enabled = false;
 	}
 
 	public void SendString (string s)

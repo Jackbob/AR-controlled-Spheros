@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour {
 
+	public static View Vw;
+
 	private Text TrackText;
-	private Image redFeedback;
-	private Image blueFeedback;
+	public Image redFeedback;
+	public Image blueFeedback;
 
 	void Start () {
 		Debug.Log("View");
@@ -72,9 +74,6 @@ public class View : MonoBehaviour {
 			} else if (sph == 2) {
 				blueFeedback.enabled = true;
 				redFeedback.enabled = false;
-			} else {
-				redFeedback.enabled = false;
-				blueFeedback.enabled = false;
 			}
 
 		} else if (cmd == 1) {
@@ -83,6 +82,6 @@ public class View : MonoBehaviour {
 	}
 
 	void sendEmpty(){
-		GAMEMANAGER.GM.SendString ("");
+		GAMEMANAGER.GM.SendString (" ");
 	}
 }

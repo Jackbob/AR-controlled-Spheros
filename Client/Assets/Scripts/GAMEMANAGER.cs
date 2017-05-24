@@ -13,7 +13,7 @@ public class GAMEMANAGER: MonoBehaviour
 
 	private bool socket;
 	private bool tracking;
-	private bool sphero;
+	public bool chosen;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -35,12 +35,10 @@ public class GAMEMANAGER: MonoBehaviour
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
 		socket = false;
 		tracking = false;
-		sphero = false;
 	}
 
 	public void Switch(){
 		SendSeq ();
-		sphero = !sphero;
 	}
 
 	public void AddToSeq(float x, float z){
@@ -53,12 +51,6 @@ public class GAMEMANAGER: MonoBehaviour
 	}
 
 	public void SendSeq(){
-
-		if(!sphero){
-			Seq = "0 " + Seq;
-		} else {
-			Seq = "1 " + Seq;
-		}
 
 		SendString(Seq);
 		Seq = "";

@@ -5,31 +5,29 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour {
 
-
-	private InputField input;
 	private Text TrackText;
-
 
 	void Start () {
 		Debug.Log("View");
 
-		input = GameObject.Find ("InputField").GetComponent<InputField> ();
-
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
-		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
 		TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
-		GameObject.Find ("SwitchBtn").GetComponent<Button> ().onClick.AddListener(Switch);
 	}
 
 	void Update(){
 		if (GAMEMANAGER.GM.GetSocket ()) {
-			
+
+			string inp = GAMEMANAGER.GM.Receive ();
+
+			if (inp != "") {
+				inputData (inp);
+			}
+				
 			if (GAMEMANAGER.GM.GetTracking ()) {
 				TrackText.text = "";
 			} else {
 				TrackText.text = "NO TRACKING FOUND";
 			}
-
 		} else {
 			Disconnect ();
 		}
@@ -46,14 +44,15 @@ public class View : MonoBehaviour {
 		GAMEMANAGER.GM.SceneLoader ("Lobby");
 	}
 
-	void SendStringInput(){
+	void inputData(string inp){
+		
+		string[] V;
+		V = inp.Split(null);
 
-		string msg = input.text;
-		GAMEMANAGER.GM.SendString (msg);
-	}
+		int cmd = int.Parse (V [0]);
 
-	void Switch(){
-
-		GAMEMANAGER.GM.Switch ();
+		if (cmd == 0) {
+			GAMEMANAGER.GM.chosen = true;
+		}
 	}
 }

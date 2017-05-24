@@ -15,7 +15,6 @@ public class Lobby : MonoBehaviour {
 
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
 		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
-		GameObject.Find ("ReadyBtn").GetComponent<Button> ().onClick.AddListener(Ready);
 
 		infoFromServer.text = "No msg from server yet";
 	}
@@ -43,10 +42,5 @@ public class Lobby : MonoBehaviour {
 	void ToFreeride(){
 
 		GAMEMANAGER.GM.SceneLoader ("View");
-	}
-
-	void Ready(){
-
-		Debug.Log("# Ready");
 	}
 }

@@ -48,17 +48,20 @@ public class TouchInput : MonoBehaviour
 				if (GAMEMANAGER.GM.chosen) {
 					GAMEMANAGER.GM.AddToSeq (vX, vZ);
 				} else {
-					GAMEMANAGER.GM.AddToSeq (vX, vZ);
-					GAMEMANAGER.GM.SendSeq ();
+					string s = vX.ToString() + " " + vZ.ToString();
+					GAMEMANAGER.GM.SendString (s);
 				}
-					
-				destroyPos (pos);	
+
+				if(GAMEMANAGER.GM.onTargetpos){
+					destroyPos (pos);
+					GAMEMANAGER.GM.onTargetpos = false;
+				}
 			}
 		}
 	}
 
 	void destroyPos (GameObject posi)
 	{
-		Destroy (posi, 1.0f);
+		Destroy (posi);
 	}
 }

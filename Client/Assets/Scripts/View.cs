@@ -53,6 +53,9 @@ public class View : MonoBehaviour {
 
 		if (cmd == 0) {
 			GAMEMANAGER.GM.chosen = true;
+		} else if (cmd == 1) {
+			GAMEMANAGER.GM.onTargetpos = true;
 		}
+
 	}
 }

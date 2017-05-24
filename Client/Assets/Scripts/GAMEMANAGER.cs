@@ -14,6 +14,7 @@ public class GAMEMANAGER: MonoBehaviour
 	private bool socket;
 	private bool tracking;
 	public bool chosen;
+	public bool onTargetpos;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -35,6 +36,8 @@ public class GAMEMANAGER: MonoBehaviour
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
 		socket = false;
 		tracking = false;
+		chosen = false;
+		onTargetpos = false;
 	}
 
 	public void Switch(){
@@ -54,6 +57,7 @@ public class GAMEMANAGER: MonoBehaviour
 
 		SendString(Seq);
 		Seq = "";
+		chosen = false;
 	}
 
 	public void SendString (string s)

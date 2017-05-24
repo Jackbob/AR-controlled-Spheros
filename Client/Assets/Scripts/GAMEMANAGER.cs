@@ -11,10 +11,11 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public static GAMEMANAGER GM;
 
-	private bool socket;
-	private bool tracking;
+	public bool socket;
+	public bool tracking;
 	public bool chosen;
 	public bool onTargetpos;
+	public bool sphero;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -38,10 +39,7 @@ public class GAMEMANAGER: MonoBehaviour
 		tracking = false;
 		chosen = false;
 		onTargetpos = false;
-	}
-
-	public void Switch(){
-		SendSeq ();
+		sphero = false;
 	}
 
 	public void AddToSeq(float x, float z){
@@ -134,28 +132,5 @@ public class GAMEMANAGER: MonoBehaviour
 	public void SceneLoader (string s)
 	{
 		SceneManager.LoadScene (s);
-	}
-
-	public bool GetSocket ()
-	{
-		if (socket) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public bool GetTracking ()
-	{
-		if (tracking) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public void SetTracking (bool c)
-	{
-		tracking = c;
 	}
 }

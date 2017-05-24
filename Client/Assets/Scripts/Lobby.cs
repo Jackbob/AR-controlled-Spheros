@@ -20,7 +20,7 @@ public class Lobby : MonoBehaviour {
 	}
 
 	void Update () {
-		if (GAMEMANAGER.GM.GetSocket ()) {
+		if (GAMEMANAGER.GM.socket) {
 			
 			string fromServer = GAMEMANAGER.GM.Receive ();
 

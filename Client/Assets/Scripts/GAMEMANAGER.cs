@@ -49,7 +49,6 @@ public class GAMEMANAGER: MonoBehaviour
 	}
 
 	public void SendSeq(){
-
 		SendString(Seq);
 		Seq = "";
 		chosen = false;

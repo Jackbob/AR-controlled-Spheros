@@ -16,6 +16,7 @@ public class Menu : MonoBehaviour {
 
 		GameObject.Find ("ConnectBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
 
+
 		info.text = "Not connected";
 	}
 

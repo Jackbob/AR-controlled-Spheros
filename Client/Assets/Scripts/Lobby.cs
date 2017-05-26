@@ -8,6 +8,8 @@ public class Lobby : MonoBehaviour {
 	private Text info;
 	private Text infoFromServer;
 
+	public GameObject panel;
+
 	void Start () {
 		Debug.Log("Lobby");
 
@@ -16,7 +18,19 @@ public class Lobby : MonoBehaviour {
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
 		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
 
+		GameObject.Find ("HowToBtn").GetComponent<Button> ().onClick.AddListener(HowTo);
+		GameObject.Find ("ClosePanelBtn").GetComponent<Button> ().onClick.AddListener(ClosePanel);
+
+		panel.SetActive (false);
 		infoFromServer.text = "";
+	}
+		
+	void HowTo(){
+		panel.SetActive (true);
+	}
+
+	void ClosePanel(){
+		panel.SetActive (false);
 	}
 
 	void Update () {

@@ -23,7 +23,6 @@ public class View : MonoBehaviour {
 		redFeedback.enabled = false;
 		blueFeedback.enabled = false;
 
-
 		InvokeRepeating("sendEmpty", 0.0f, 0.1f);
 	}
 
@@ -78,9 +77,6 @@ public class View : MonoBehaviour {
 
 		} else if (cmd == 1) {
 			GAMEMANAGER.GM.onTargetpos = true;
-		} else {
-			View.Vw.redFeedback.enabled = false;
-			View.Vw.blueFeedback.enabled = false;
 		}
 	}
 

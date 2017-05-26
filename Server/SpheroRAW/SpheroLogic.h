@@ -19,10 +19,11 @@ private:
 	ISpheroDevice* device;
 	std::vector<std::pair<float, float>>* targetPositions;
 	const char* spheroName;
-	float X, Y;
+	float X, Y, prevX, prevY;
 	bool moving;
 	int commandCount;
-	int prevAngle, currentTargetsRemaining, prevTargetsRemaining;
+	int offAngle;
+	//int prevAngle, currentTargetsRemaining, prevTargetsRemaining;
 
 	void PrintDeviceStatus(std::string action, ISpheroDevice* device);
 	float distToPoint(float X, float Y, float Xtarget, float Ytarget);
@@ -34,7 +35,7 @@ private:
 public:
 	SpheroLogic(const char* name);
 	~SpheroLogic();
-	int offAngle;
+	int prevAngle, currentTargetsRemaining, prevTargetsRemaining;
 
 	void moveSphero();
 	void keyMove();

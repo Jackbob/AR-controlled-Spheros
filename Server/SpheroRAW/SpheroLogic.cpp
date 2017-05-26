@@ -35,6 +35,7 @@ void SpheroLogic::moveSphero()
 		//Loop through targets and move towards them in order
 		for (auto target : *targetPositions) {
 				do {
+					if (commandCount % 5 == 0) { prevX = X; prevY = Y; }
 					dist = distToPoint(X, Y, target.first, target.second);
 					calculatePath(target);
 					commandCount++;
@@ -136,17 +137,17 @@ void SpheroLogic::setTarget(std::string targetString)
 	//Set new target if sphero not moving
 	if (!moving)
 	{
+		currentTargetsRemaining = 0;
 		float x, y;
 		std::stringstream stream = std::stringstream(targetString);
 		targetPositions->clear();
-		stream >> x;
 		//Read tablet output
 		while (stream >> y && stream >> x)
 		{
 			std::cout << std::endl << -x*100.0f << "     " << y*100.0f << std::endl;
 			targetPositions->push_back(std::make_pair(-x * 100.0f, y*100.0f));
+			currentTargetsRemaining++;
 		}
-		currentTargetsRemaining = targetPositions->size();
 		prevTargetsRemaining = currentTargetsRemaining;
 	}
 }
@@ -233,7 +234,7 @@ void SpheroLogic::calculatePath(std::pair<float, float> target)
 
 		currentTargetsRemaining--;
 		device->roll(0,  angle, 0);
-		
+		std::cout << "Targets remaining: " << currentTargetsRemaining << std::endl;
 	}
 	//Roll sphero slow if within CLOSE_RADIUS
 	else if (distance < CLOSE_RADIUS && (abs(prevAngle - angle) > ACCEPTED_ANGLE_OFFSET ||  commandCount % CMD_WAIT == 0))
@@ -301,8 +302,11 @@ void SpheroLogic::updateSpheroPos(float Xpos, float Ypos)
 //Calculate angle to target
 int SpheroLogic::getAngle(std::pair<float, float> target)
 {
+	float futureX = X + (X - prevX);
+	float futureY = Y + (Y - prevY);
+
 	//Universal angle to target
-	float angle = atan2(target.second - Y , target.first - X);
+	float angle = atan2(target.second - futureY , target.first - futureX);
 	angle = angle * (180.0f / 3.14f);
 
 	//To sphero angle

@@ -12,6 +12,7 @@ public class TouchInput : MonoBehaviour
 	private Color sphero2 = new Color(0.7f, 0.1f, 0.6f, 1.0f);
 	private Color sphero0 = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	private float Rotate = 0;
+	private GameObject onSpheroChosen;
 
 	// Update is called once per frame
 	void Update ()
@@ -20,13 +21,6 @@ public class TouchInput : MonoBehaviour
 		// Create a plane that matches the target plane
 		Plane targetPlane = new Plane (transform.up, transform.position);
 
-		if (GAMEMANAGER.GM.WhichSpehro == 1) {
-			posColored.color = sphero1;
-		} else if (GAMEMANAGER.GM.WhichSpehro == 2) {
-			posColored.color = sphero2;
-		} else {
-			posColored.color = sphero0;
-		}
 
 		// When user touch the screen
 		foreach (Touch touch in Input.touches) {
@@ -40,7 +34,13 @@ public class TouchInput : MonoBehaviour
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				posColored = new Material (Shader.Find ("Diffuse"));
-
+				if (GAMEMANAGER.GM.WhichSpehro == 1) {
+					posColored.color = sphero1;
+				} else if (GAMEMANAGER.GM.WhichSpehro == 2) {
+					posColored.color = sphero2;
+				} else {
+					posColored.color = sphero0;
+				}
 				pos.GetComponent<Renderer> ().material = posColored;
 				pos.transform.parent = transform;
 				pos.transform.localScale = new Vector3 (0.1f, 0.001f, 0.1f);
@@ -63,22 +63,26 @@ public class TouchInput : MonoBehaviour
 				//}
 			}
 		}
-
+		Destroy (onSpheroChosen);
 		if(GAMEMANAGER.GM.IsChosen){
-			
 				
-			Rotate += 1;
+			Rotate += 90 * Time.deltaTime;
 
 			// Which Sphero is used at the moment
-			GameObject onSpheroChosen = Instantiate(Resources.Load("arrow", typeof(GameObject))) as GameObject;
+			onSpheroChosen = Instantiate(Resources.Load("arrow", typeof(GameObject))) as GameObject;
 
 			posColored.color = posColor;
 			onSpheroChosen.GetComponent<Renderer> ().material = posColored;
 			onSpheroChosen.transform.parent = transform;
+			onSpheroChosen.transform.Rotate (0, Rotate, 0);
+			onSpheroChosen.transform.Rotate (0f, 0f, 90.0f);
 			onSpheroChosen.transform.localScale = new Vector3 (0.4f, 0.4f, 0.4f);
 			onSpheroChosen.transform.position = new Vector3(GAMEMANAGER.GM.ShowChosenX,0.2f,GAMEMANAGER.GM.ShowChosenZ);
 
-			Destroy (onSpheroChosen, 0.1f);
+
+			if (Rotate >= 360) {
+				Rotate = 0;
+			}
 		}
 	}
 }

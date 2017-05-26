@@ -102,6 +102,7 @@ public class View : MonoBehaviour {
 			BlueFeedback.enabled = false;
 			RedFeedback.enabled = false;
 			GAMEMANAGER.GM.IsChosen = false;
+			GAMEMANAGER.GM.WhichSpehro = 3;
 		}
 	}
 }

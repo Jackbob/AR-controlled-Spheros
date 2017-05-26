@@ -8,6 +8,8 @@ public class Lobby : MonoBehaviour {
 	private Text info;
 	private Text infoFromServer;
 
+	public GameObject panel;
+
 	void Start () {
 		Debug.Log("Lobby");
 
@@ -15,13 +17,24 @@ public class Lobby : MonoBehaviour {
 
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
 		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
-		GameObject.Find ("ReadyBtn").GetComponent<Button> ().onClick.AddListener(Ready);
 
-		infoFromServer.text = "No msg from server yet";
+		GameObject.Find ("HowToBtn").GetComponent<Button> ().onClick.AddListener(HowTo);
+		GameObject.Find ("ClosePanelBtn").GetComponent<Button> ().onClick.AddListener(ClosePanel);
+
+		panel.SetActive (false);
+		infoFromServer.text = "";
+	}
+		
+	void HowTo(){
+		panel.SetActive (true);
+	}
+
+	void ClosePanel(){
+		panel.SetActive (false);
 	}
 
 	void Update () {
-		if (GAMEMANAGER.GM.GetSocket ()) {
+		if (GAMEMANAGER.GM.socket) {
 			
 			string fromServer = GAMEMANAGER.GM.Receive ();
 
@@ -43,10 +56,5 @@ public class Lobby : MonoBehaviour {
 	void ToFreeride(){
 
 		GAMEMANAGER.GM.SceneLoader ("View");
-	}
-
-	void Ready(){
-
-		Debug.Log("# Ready");
 	}
 }

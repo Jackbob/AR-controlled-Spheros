@@ -5,31 +5,40 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour {
 
+	public static View Vw;
 
-	private InputField input;
 	private Text TrackText;
-
+	public Image redFeedback;
+	public Image blueFeedback;
 
 	void Start () {
 		Debug.Log("View");
 
-		input = GameObject.Find ("InputField").GetComponent<InputField> ();
-
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
-		GameObject.Find ("SendStringBtn").GetComponent<Button> ().onClick.AddListener(SendStringInput);
 		TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
-		GameObject.Find ("SwitchBtn").GetComponent<Button> ().onClick.AddListener(Switch);
+
+		redFeedback = GameObject.Find("Red").GetComponent<Image>();
+		blueFeedback = GameObject.Find("Blue").GetComponent<Image>();
+
+		redFeedback.enabled = false;
+		blueFeedback.enabled = false;
+
 	}
 
 	void Update(){
-		if (GAMEMANAGER.GM.GetSocket ()) {
-			
-			if (GAMEMANAGER.GM.GetTracking ()) {
+		if (GAMEMANAGER.GM.socket) {
+
+			string inp = GAMEMANAGER.GM.Receive ();
+
+			if (inp != "") {
+				inputData (inp);
+			}
+				
+			if (GAMEMANAGER.GM.tracking) {
 				TrackText.text = "";
 			} else {
 				TrackText.text = "NO TRACKING FOUND";
 			}
-
 		} else {
 			Disconnect ();
 		}
@@ -46,14 +55,36 @@ public class View : MonoBehaviour {
 		GAMEMANAGER.GM.SceneLoader ("Lobby");
 	}
 
-	void SendStringInput(){
+	void inputData(string inp){
+		
+		string[] V;
+		V = inp.Split(null);
 
-		string msg = input.text;
-		GAMEMANAGER.GM.SendString (msg);
+		int cmd = int.Parse (V [0]);
+
+
+		if (cmd == 0) {
+
+			int sph = int.Parse (V [1]);
+			GAMEMANAGER.GM.SpheroX = float.Parse (V [3])/100;
+			GAMEMANAGER.GM.SpheroZ = -float.Parse (V [2])/100;
+
+			GAMEMANAGER.GM.chosen = true;
+			GAMEMANAGER.GM.ShowChosen = true;
+			if (sph == 1) {
+				redFeedback.enabled = true;
+				blueFeedback.enabled = false;
+			} else if (sph == 2) {
+				blueFeedback.enabled = true;
+				redFeedback.enabled = false;
+			}
+		} else if (cmd == 1) {
+			GAMEMANAGER.GM.onTargetpos = true;
+		} else if (cmd == 2) {
+			blueFeedback.enabled = false;
+			redFeedback.enabled = false;
+			GAMEMANAGER.GM.ShowChosen = false;
+		}
 	}
 
-	void Switch(){
-
-		GAMEMANAGER.GM.Switch ();
-	}
 }

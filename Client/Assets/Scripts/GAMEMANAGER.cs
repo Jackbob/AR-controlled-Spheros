@@ -5,15 +5,19 @@ using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GAMEMANAGER: MonoBehaviour
 {
 
 	public static GAMEMANAGER GM;
 
-	private bool socket;
-	private bool tracking;
-	private bool sphero;
+	public bool socket;
+	public bool tracking;
+	public bool chosen;
+	public bool onTargetpos;
+	public bool ShowChosen;
+
+	public float SpheroX;
+	public float SpheroZ;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -35,12 +39,9 @@ public class GAMEMANAGER: MonoBehaviour
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
 		socket = false;
 		tracking = false;
-		sphero = false;
-	}
-
-	public void Switch(){
-		SendSeq ();
-		sphero = !sphero;
+		chosen = false;
+		onTargetpos = false;
+		ShowChosen = false;
 	}
 
 	public void AddToSeq(float x, float z){
@@ -53,15 +54,9 @@ public class GAMEMANAGER: MonoBehaviour
 	}
 
 	public void SendSeq(){
-
-		if(!sphero){
-			Seq = "0 " + Seq;
-		} else {
-			Seq = "1 " + Seq;
-		}
-
 		SendString(Seq);
 		Seq = "";
+		chosen = false;
 	}
 
 	public void SendString (string s)
@@ -138,28 +133,5 @@ public class GAMEMANAGER: MonoBehaviour
 	public void SceneLoader (string s)
 	{
 		SceneManager.LoadScene (s);
-	}
-
-	public bool GetSocket ()
-	{
-		if (socket) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public bool GetTracking ()
-	{
-		if (tracking) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public void SetTracking (bool c)
-	{
-		tracking = c;
 	}
 }

@@ -8,25 +8,24 @@ public class View : MonoBehaviour {
 	public static View Vw;
 
 	private Text TrackText;
-	public Image redFeedback;
-	public Image blueFeedback;
+	private Image RedFeedback;
+	private Image BlueFeedback;
 
 	void Start () {
 		Debug.Log("View");
 
 		GameObject.Find ("ToLobbyBtn").GetComponent<Button> ().onClick.AddListener(ToLobby);
-		TrackText = GameObject.Find ("OnTrack").GetComponent<Text> ();
+		TrackText = GameObject.Find ("NoTrackingText").GetComponent<Text> ();
 
-		redFeedback = GameObject.Find("Red").GetComponent<Image>();
-		blueFeedback = GameObject.Find("Blue").GetComponent<Image>();
+		RedFeedback = GameObject.Find("Red").GetComponent<Image>();
+		BlueFeedback = GameObject.Find("Blue").GetComponent<Image>();
 
-		redFeedback.enabled = false;
-		blueFeedback.enabled = false;
-
+		RedFeedback.enabled = false;
+		BlueFeedback.enabled = false;
 	}
 
 	void Update(){
-		if (GAMEMANAGER.GM.socket) {
+		if (GAMEMANAGER.GM.Socket) {
 
 			string inp = GAMEMANAGER.GM.Receive ();
 
@@ -34,10 +33,10 @@ public class View : MonoBehaviour {
 				inputData (inp);
 			}
 				
-			if (GAMEMANAGER.GM.tracking) {
+			if (GAMEMANAGER.GM.Tracking) {
 				TrackText.text = "";
 			} else {
-				TrackText.text = "NO TRACKING FOUND";
+				TrackText.text = "NO TRACKING";
 			}
 		} else {
 			Disconnect ();
@@ -45,13 +44,11 @@ public class View : MonoBehaviour {
 	}
 
 	void Disconnect(){
-
 		GAMEMANAGER.GM.Disconnect ();
 		GAMEMANAGER.GM.SceneLoader ("Menu");
 	}
 
 	void ToLobby(){
-
 		GAMEMANAGER.GM.SceneLoader ("Lobby");
 	}
 
@@ -62,29 +59,26 @@ public class View : MonoBehaviour {
 
 		int cmd = int.Parse (V [0]);
 
-
 		if (cmd == 0) {
-
 			int sph = int.Parse (V [1]);
-			GAMEMANAGER.GM.SpheroX = float.Parse (V [3])/100;
-			GAMEMANAGER.GM.SpheroZ = -float.Parse (V [2])/100;
-
-			GAMEMANAGER.GM.chosen = true;
-			GAMEMANAGER.GM.ShowChosen = true;
+			GAMEMANAGER.GM.ShowChosenX = float.Parse (V [3])/100;
+			GAMEMANAGER.GM.ShowChosenZ = -float.Parse (V [2])/100;
+			GAMEMANAGER.GM.IsChosen = true;
 			if (sph == 1) {
-				redFeedback.enabled = true;
-				blueFeedback.enabled = false;
+				RedFeedback.enabled = true;
+				BlueFeedback.enabled = false;
+				GAMEMANAGER.GM.WhichSpehro = 1;
 			} else if (sph == 2) {
-				blueFeedback.enabled = true;
-				redFeedback.enabled = false;
+				BlueFeedback.enabled = true;
+				RedFeedback.enabled = false;
+				GAMEMANAGER.GM.WhichSpehro = 2;
 			}
 		} else if (cmd == 1) {
 			GAMEMANAGER.GM.onTargetpos = true;
 		} else if (cmd == 2) {
-			blueFeedback.enabled = false;
-			redFeedback.enabled = false;
-			GAMEMANAGER.GM.ShowChosen = false;
+			BlueFeedback.enabled = false;
+			RedFeedback.enabled = false;
+			GAMEMANAGER.GM.IsChosen = false;
 		}
 	}
-
 }

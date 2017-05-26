@@ -10,14 +10,15 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public static GAMEMANAGER GM;
 
-	public bool socket;
-	public bool tracking;
-	public bool chosen;
-	public bool onTargetpos;
-	public bool ShowChosen;
+	public bool Socket;
+	public bool Tracking;
+	public bool IsChosen;
+	public int WhichSpehro;
 
-	public float SpheroX;
-	public float SpheroZ;
+	public bool onTargetpos;
+
+	public float ShowChosenX;
+	public float ShowChosenZ;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -37,11 +38,10 @@ public class GAMEMANAGER: MonoBehaviour
 	void Start ()
 	{
 		InvokeRepeating("SocketConnected", 2.0f, 2.0f);
-		socket = false;
-		tracking = false;
-		chosen = false;
+		Socket = false;
+		Tracking = false;
+		IsChosen = false;
 		onTargetpos = false;
-		ShowChosen = false;
 	}
 
 	public void AddToSeq(float x, float z){
@@ -56,7 +56,7 @@ public class GAMEMANAGER: MonoBehaviour
 	public void SendSeq(){
 		SendString(Seq);
 		Seq = "";
-		chosen = false;
+		IsChosen = false;
 	}
 
 	public void SendString (string s)
@@ -73,17 +73,15 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void Connect (string host)
 	{
-		if (socket)
+		if (Socket)
 			return;
 
-		//Default IP/port
 		int port = 6321;
 
-		//Create socket
 		try {
 			client = new TcpClient (host, port);
 			stream = client.GetStream ();
-			socket = true;
+			Socket = true;
 		} catch (Exception e) {
 			Debug.Log ("Socket error: " + e.Message);
 		}
@@ -94,7 +92,7 @@ public class GAMEMANAGER: MonoBehaviour
 		try {
 			stream.Close ();
 			client.Close ();
-			socket = false;
+			Socket = false;
 		} catch (Exception e) {
 			Debug.Log ("DC error: " + e.Message);
 		}
@@ -121,11 +119,11 @@ public class GAMEMANAGER: MonoBehaviour
 
 	public void SocketConnected ()
 	{
-		if (socket) {
+		if (Socket) {
 			bool part1 = client.Client.Poll (1000, SelectMode.SelectRead);
 			bool part2 = (client.Client.Available == 0);
 			if (part1 && part2) {
-				socket = false;
+				Socket = false;
 			}
 		}
 	}

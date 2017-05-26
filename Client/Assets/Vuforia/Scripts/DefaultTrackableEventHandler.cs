@@ -54,12 +54,12 @@ namespace Vuforia
                 newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED)
             {
                 OnTrackingFound();
-				GAMEMANAGER.GM.tracking = true;
+				GAMEMANAGER.GM.Tracking = true;
             }
             else
             {
                 OnTrackingLost();
-				GAMEMANAGER.GM.tracking = false;
+				GAMEMANAGER.GM.Tracking = false;
             }
         }
 

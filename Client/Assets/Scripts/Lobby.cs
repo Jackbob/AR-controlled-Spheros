@@ -5,56 +5,48 @@ using UnityEngine.UI;
 
 public class Lobby : MonoBehaviour {
 
-	private Text info;
-	private Text infoFromServer;
-
-	public GameObject panel;
+	private Text InfoFromServer;
+	public GameObject Panel;
 
 	void Start () {
 		Debug.Log("Lobby");
 
-		infoFromServer = GameObject.Find ("InfoTxt").GetComponent<Text> ();
+		InfoFromServer = GameObject.Find ("InfoFromServerText").GetComponent<Text> ();
 
+		GameObject.Find ("PlayBtn").GetComponent<Button> ().onClick.AddListener(Play);
+		GameObject.Find ("HowToPlayBtn").GetComponent<Button> ().onClick.AddListener(HowToPlay);
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
-		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
-
-		GameObject.Find ("HowToBtn").GetComponent<Button> ().onClick.AddListener(HowTo);
 		GameObject.Find ("ClosePanelBtn").GetComponent<Button> ().onClick.AddListener(ClosePanel);
 
-		panel.SetActive (false);
-		infoFromServer.text = "";
+		Panel.SetActive (false);
+		InfoFromServer.text = "";
 	}
 		
-	void HowTo(){
-		panel.SetActive (true);
+	void HowToPlay(){
+		Panel.SetActive (true);
 	}
 
 	void ClosePanel(){
-		panel.SetActive (false);
+		Panel.SetActive (false);
 	}
 
 	void Update () {
-		if (GAMEMANAGER.GM.socket) {
-			
+		if (GAMEMANAGER.GM.Socket) {
 			string fromServer = GAMEMANAGER.GM.Receive ();
-
 			if (fromServer != "") {
-				infoFromServer.text = fromServer;
+				InfoFromServer.text = fromServer;
 			}
-
 		} else {
 			Disconnect ();
 		}
 	}
 
 	void Disconnect(){
-
 		GAMEMANAGER.GM.Disconnect ();
 		GAMEMANAGER.GM.SceneLoader ("Menu");
 	}
 
-	void ToFreeride(){
-
+	void Play(){
 		GAMEMANAGER.GM.SceneLoader ("View");
 	}
 }

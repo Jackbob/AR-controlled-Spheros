@@ -11,6 +11,9 @@ public class View : MonoBehaviour {
 	private Image RedFeedback;
 	private Image BlueFeedback;
 
+	private Image CountDownFeedback;
+	private float CountDownCurHeight;
+
 	void Start () {
 		Debug.Log("View");
 
@@ -20,12 +23,31 @@ public class View : MonoBehaviour {
 		RedFeedback = GameObject.Find("Red").GetComponent<Image>();
 		BlueFeedback = GameObject.Find("Blue").GetComponent<Image>();
 
+		CountDownFeedback = GameObject.Find("CountDown").GetComponent<Image>();
+
 		RedFeedback.enabled = false;
 		BlueFeedback.enabled = false;
 	}
 
 	void Update(){
 		if (GAMEMANAGER.GM.Socket) {
+
+			if (Input.GetKeyDown("e")){
+				GAMEMANAGER.GM.TEST ();
+		    }
+
+			if (Input.GetKeyDown("t")){
+				GAMEMANAGER.GM.IsChosen = !GAMEMANAGER.GM.IsChosen;
+			}
+
+
+
+			if(GAMEMANAGER.GM.IsChosen && GAMEMANAGER.GM.CountDownHeight > 0.0f){
+				GAMEMANAGER.GM.CountDownHeight -= 0.01f;
+				CountDownFeedback.transform.localScale = new Vector2( 1.0f, GAMEMANAGER.GM.CountDownHeight);
+			} else {
+				CountDownFeedback.transform.localScale = new Vector2( 1.0f, 0.0f);
+			}
 
 			string inp = GAMEMANAGER.GM.Receive ();
 
@@ -64,6 +86,7 @@ public class View : MonoBehaviour {
 			GAMEMANAGER.GM.ShowChosenX = float.Parse (V [3])/100;
 			GAMEMANAGER.GM.ShowChosenZ = -float.Parse (V [2])/100;
 			GAMEMANAGER.GM.IsChosen = true;
+			GAMEMANAGER.GM.CountDownHeight = 0.0f;
 			if (sph == 1) {
 				RedFeedback.enabled = true;
 				BlueFeedback.enabled = false;

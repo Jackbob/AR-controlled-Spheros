@@ -20,6 +20,8 @@ public class GAMEMANAGER: MonoBehaviour
 	public float ShowChosenX;
 	public float ShowChosenZ;
 
+	public float CountDownHeight;
+
 	private TcpClient client;
 	private NetworkStream stream;
 
@@ -33,6 +35,10 @@ public class GAMEMANAGER: MonoBehaviour
 		}
 		GM = this;
 		DontDestroyOnLoad (gameObject);
+	}
+
+	public void TEST(){
+		CountDownHeight = 1.0f;
 	}
 
 	void Start ()
@@ -50,6 +56,7 @@ public class GAMEMANAGER: MonoBehaviour
 			Seq += x.ToString() + " " + z.ToString() + " ";
 			CancelInvoke ("SendSeq");
 			Invoke ("SendSeq", 2);
+			CountDownHeight = 1.0f;
 		}
 	}
 
@@ -57,6 +64,7 @@ public class GAMEMANAGER: MonoBehaviour
 		SendString(Seq);
 		Seq = "";
 		IsChosen = false;
+
 	}
 
 	public void SendString (string s)

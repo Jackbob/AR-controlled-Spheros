@@ -10,6 +10,7 @@ public class TouchInput : MonoBehaviour
 	private Material posColored;
 	private Color sphero1 = new Color(1.0f, 0f, 0f, 1.0f);
 	private Color sphero2 = new Color(0.7f, 0.1f, 0.6f, 1.0f);
+	private Color sphero0 = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	private float Rotate = 0;
 
 	// Update is called once per frame
@@ -18,6 +19,14 @@ public class TouchInput : MonoBehaviour
 		// Attach this script to a trackable object
 		// Create a plane that matches the target plane
 		Plane targetPlane = new Plane (transform.up, transform.position);
+
+		if (GAMEMANAGER.GM.WhichSpehro == 1) {
+			posColored.color = sphero1;
+		} else if (GAMEMANAGER.GM.WhichSpehro == 2) {
+			posColored.color = sphero2;
+		} else {
+			posColored.color = sphero0;
+		}
 
 		// When user touch the screen
 		foreach (Touch touch in Input.touches) {
@@ -31,12 +40,6 @@ public class TouchInput : MonoBehaviour
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				posColored = new Material (Shader.Find ("Diffuse"));
-
-				if (GAMEMANAGER.GM.WhichSpehro == 1) {
-					posColored.color = sphero1;
-				} else {
-					posColored.color = sphero2;
-				}
 
 				pos.GetComponent<Renderer> ().material = posColored;
 				pos.transform.parent = transform;

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 48095ddb5e16db447bc4b04609dcdd84
+timeCreated: 1495780366
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Mustardo
+  fontNames:
+  - Mustardo
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

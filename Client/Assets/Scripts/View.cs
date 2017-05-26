@@ -78,10 +78,13 @@ public class View : MonoBehaviour {
 
 		} else if (cmd == 1) {
 			GAMEMANAGER.GM.onTargetpos = true;
+		} else {
+			View.Vw.redFeedback.enabled = false;
+			View.Vw.blueFeedback.enabled = false;
 		}
 	}
 
 	void sendEmpty(){
-		GAMEMANAGER.GM.SendString (" ");
+		GAMEMANAGER.GM.SendString ("0");
 	}
 }

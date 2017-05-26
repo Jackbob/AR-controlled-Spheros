@@ -16,7 +16,7 @@ public class Lobby : MonoBehaviour {
 		GameObject.Find ("DisconnectBtn").GetComponent<Button> ().onClick.AddListener(Disconnect);
 		GameObject.Find ("FreerideBtn").GetComponent<Button> ().onClick.AddListener(ToFreeride);
 
-		infoFromServer.text = "No msg from server yet";
+		infoFromServer.text = "";
 	}
 
 	void Update () {

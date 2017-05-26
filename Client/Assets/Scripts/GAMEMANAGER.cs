@@ -53,8 +53,6 @@ public class GAMEMANAGER: MonoBehaviour
 		SendString(Seq);
 		Seq = "";
 		chosen = false;
-		View.Vw.redFeedback.enabled = false;
-		View.Vw.blueFeedback.enabled = false;
 	}
 
 	public void SendString (string s)

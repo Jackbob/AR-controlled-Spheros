@@ -14,6 +14,10 @@ public class GAMEMANAGER: MonoBehaviour
 	public bool tracking;
 	public bool chosen;
 	public bool onTargetpos;
+	public bool ShowChosen;
+
+	public float SpheroX;
+	public float SpheroZ;
 
 	private TcpClient client;
 	private NetworkStream stream;
@@ -37,6 +41,7 @@ public class GAMEMANAGER: MonoBehaviour
 		tracking = false;
 		chosen = false;
 		onTargetpos = false;
+		ShowChosen = false;
 	}
 
 	public void AddToSeq(float x, float z){

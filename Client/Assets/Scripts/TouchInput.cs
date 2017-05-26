@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class TouchInput : MonoBehaviour
 {
+	public static TouchInput TI;
+	public Color posColor = new Color (0f, 1.0f, 0f, 1.0f);
+	public Material posColored;
 
-	private Color posColor = new Color (0f, 1.0f, 0f, 1.0f);
-	private Material posColored;
+	public float vX;
+	public float vZ;
 
 	void Start ()
 	{
@@ -29,9 +32,6 @@ public class TouchInput : MonoBehaviour
 				targetPlane.Raycast (ray, out dist);
 				Vector3 planePoint = ray.GetPoint (dist);
 
-				float tx = touch.position.x;
-				float ty = touch.position.y;
-					
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				posColored = new Material (Shader.Find ("Diffuse"));
@@ -42,8 +42,8 @@ public class TouchInput : MonoBehaviour
 				pos.transform.position = planePoint;
 
 				// Just to write out the coords of the touch input on the target plane
-				float vX = planePoint.x;
-				float vZ = planePoint.z;
+				vX = planePoint.x;
+				vZ = planePoint.z;
 
 				if (GAMEMANAGER.GM.chosen) {
 					GAMEMANAGER.GM.AddToSeq (vX, vZ);
@@ -52,16 +52,24 @@ public class TouchInput : MonoBehaviour
 					GAMEMANAGER.GM.SendString (s);
 				}
 
-				if(GAMEMANAGER.GM.onTargetpos){
-					destroyPos (pos);
-					GAMEMANAGER.GM.onTargetpos = false;
-				}
+				//if(GAMEMANAGER.GM.onTargetpos){
+					Destroy (pos, 3.0f);
+					//GAMEMANAGER.GM.onTargetpos = false;
+				//}
 			}
 		}
-	}
 
-	void destroyPos (GameObject posi)
-	{
-		Destroy (posi);
+		if(GAMEMANAGER.GM.ShowChosen){
+			// Which Sphero is used at the moment
+			GameObject onSpheroChosen = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+			posColored = new Material (Shader.Find ("Diffuse"));
+			posColored.color = posColor;
+			onSpheroChosen.GetComponent<Renderer> ().material = posColored;
+			onSpheroChosen.transform.parent = transform;
+			onSpheroChosen.transform.localScale = new Vector3 (0.4f, 0.4f, 0.4f);
+			onSpheroChosen.transform.position = new Vector3(GAMEMANAGER.GM.SpheroX,0.2f,GAMEMANAGER.GM.SpheroZ);
+
+			Destroy (onSpheroChosen, 1.0f);
+		}
 	}
 }

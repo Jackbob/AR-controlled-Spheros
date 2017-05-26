@@ -23,7 +23,6 @@ public class View : MonoBehaviour {
 		redFeedback.enabled = false;
 		blueFeedback.enabled = false;
 
-		InvokeRepeating("sendEmpty", 0.0f, 0.1f);
 	}
 
 	void Update(){
@@ -62,11 +61,16 @@ public class View : MonoBehaviour {
 		V = inp.Split(null);
 
 		int cmd = int.Parse (V [0]);
-		int sph = int.Parse (V [1]);
+
 
 		if (cmd == 0) {
-			GAMEMANAGER.GM.chosen = true;
 
+			int sph = int.Parse (V [1]);
+			GAMEMANAGER.GM.SpheroX = float.Parse (V [3])/100;
+			GAMEMANAGER.GM.SpheroZ = -float.Parse (V [2])/100;
+
+			GAMEMANAGER.GM.chosen = true;
+			GAMEMANAGER.GM.ShowChosen = true;
 			if (sph == 1) {
 				redFeedback.enabled = true;
 				blueFeedback.enabled = false;
@@ -74,13 +78,13 @@ public class View : MonoBehaviour {
 				blueFeedback.enabled = true;
 				redFeedback.enabled = false;
 			}
-
 		} else if (cmd == 1) {
 			GAMEMANAGER.GM.onTargetpos = true;
+		} else if (cmd == 2) {
+			blueFeedback.enabled = false;
+			redFeedback.enabled = false;
+			GAMEMANAGER.GM.ShowChosen = false;
 		}
 	}
 
-	void sendEmpty(){
-		GAMEMANAGER.GM.SendString ("0");
-	}
 }

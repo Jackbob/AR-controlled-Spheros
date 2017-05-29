@@ -13,7 +13,7 @@ public class GAMEMANAGER: MonoBehaviour
 	public bool Socket;
 	public bool Tracking;
 	public bool IsChosen;
-	public int WhichSpehro;
+	public int WhichSphero;
 
 	public bool onTargetpos;
 

@@ -90,11 +90,11 @@ public class View : MonoBehaviour {
 			if (sph == 1) {
 				RedFeedback.enabled = true;
 				BlueFeedback.enabled = false;
-				GAMEMANAGER.GM.WhichSpehro = 1;
+				GAMEMANAGER.GM.WhichSphero = 1;
 			} else if (sph == 2) {
 				BlueFeedback.enabled = true;
 				RedFeedback.enabled = false;
-				GAMEMANAGER.GM.WhichSpehro = 2;
+				GAMEMANAGER.GM.WhichSphero = 2;
 			}
 		} else if (cmd == 1) {
 			GAMEMANAGER.GM.onTargetpos = true;
@@ -102,7 +102,7 @@ public class View : MonoBehaviour {
 			BlueFeedback.enabled = false;
 			RedFeedback.enabled = false;
 			GAMEMANAGER.GM.IsChosen = false;
-			GAMEMANAGER.GM.WhichSpehro = 3;
+			GAMEMANAGER.GM.WhichSphero = 0;
 		}
 	}
 }

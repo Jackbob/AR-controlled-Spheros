@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class TouchInput : MonoBehaviour
 {
 	public static TouchInput TI;
-	private Color posColor = new Color (0f, 1.0f, 0f, 1.0f);
 	private Material posColored;
 	private Color sphero1 = new Color(1.0f, 0f, 0f, 1.0f);
 	private Color sphero2 = new Color(0.7f, 0.1f, 0.6f, 1.0f);
@@ -34,9 +33,9 @@ public class TouchInput : MonoBehaviour
 				// Creates and gameobject (cylinder) and makes it green, used to mark out the user touch position
 				GameObject pos = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
 				posColored = new Material (Shader.Find ("Diffuse"));
-				if (GAMEMANAGER.GM.WhichSpehro == 1) {
+				if (GAMEMANAGER.GM.WhichSphero == 1) {
 					posColored.color = sphero1;
-				} else if (GAMEMANAGER.GM.WhichSpehro == 2) {
+				} else if (GAMEMANAGER.GM.WhichSphero == 2) {
 					posColored.color = sphero2;
 				} else {
 					posColored.color = sphero0;
@@ -70,8 +69,15 @@ public class TouchInput : MonoBehaviour
 
 			// Which Sphero is used at the moment
 			onSpheroChosen = Instantiate(Resources.Load("arrow", typeof(GameObject))) as GameObject;
-
-			posColored.color = posColor;
+			if(GAMEMANAGER.GM.WhichSphero == 1){
+				posColored.color = sphero1;
+			}
+			else if(GAMEMANAGER.GM.WhichSphero == 2){
+				posColored.color = sphero2;
+			}
+			else{
+				posColored.color = sphero0;
+			}
 			onSpheroChosen.GetComponent<Renderer> ().material = posColored;
 			onSpheroChosen.transform.parent = transform;
 			onSpheroChosen.transform.Rotate (0, Rotate, 0);
